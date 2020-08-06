@@ -1,6 +1,4 @@
 const { villaModel, userModel, reservationModel } = require('../models')
-const villa = require('../models/villa')
-const { findById } = require('../models/villa')
 
 module.exports = {
     get: {
@@ -164,7 +162,6 @@ module.exports = {
                 })
                 .then((villaUpdated) => {
                     res.status(200).json({ status: true, msg: `Villa with ID ${villaId} is updated` })
-                    console.log('villa', villa)
                 })
                 .catch(err => {
                     if (err.name == 'ValidationError') {
