@@ -1,0 +1,8 @@
+The project is working on local Mongo and cloud Mongodb, by default is set to local base.
+The default port is 4000.
+If you want to use cloud MongoDB please change the /config/config.js:
+from -> const env = process.env.NODE_ENV || 'local' 
+to -> const env = process.env.NODE_ENV || 'cloud';
+The project is using Express, MongoDb, mongoose, jwt.
+For security purpose are made black token list for all users that were logout.
+All errors handling are made in mongoose!
