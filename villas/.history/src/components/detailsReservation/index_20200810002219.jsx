@@ -76,11 +76,6 @@ const VillaDetail = () => {
     }
     return (
         <div>
-            <h2>Reservation Details</h2>
-            <h4>Toutists: </h4>
-            {clients.map((client,id)=><div key={id}>tourist {id+1}: {client}</div>)}
-            <h4>Comments: </h4>
-            {comments.length!==0 && comments.map((comment,id)=><div key={id}>comment {id+1}: {comment}</div>)}
             <h2>Details Viilla Page</h2>
             <h3> {villaName} in {region}</h3>
             {isBooked ? <div>offer is booked</div> : <div>offer is still available</div>}

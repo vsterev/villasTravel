@@ -19,10 +19,10 @@ module.exports = {
             const reservationId = req.params.id;
             reservationModel.findById(reservationId).populate('villaId creatorId')
                 .then(reservation => {
-                    if (reservation.creatorId !== user.userId) {
-                        res.status(404).json({ status: false, msg: 'You don\'t have access to this booking!' })
-                        return
-                    }
+                    // if (reservation.creatorId !== user.userId) {
+                    //     res.status(404).json({ status: false, msg: 'You don\'t have access to this booking!' })
+                    //     return
+                    // }
                     res.status(200).json({ status: true, reservation })
                 })
                 .catch(err => {
