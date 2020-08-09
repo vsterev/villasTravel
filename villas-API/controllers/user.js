@@ -20,22 +20,22 @@ module.exports = {
         verifyLogin: (req, res, next) => {
             const token = req.headers.authorization
             Promise.all([
-                utils.jwt.verifyToken(token),
-                models.TokenBlacklist.findOne({ token })
+                verifyToken(token),
+                tokenBlacklistModel.findOne({ token })
             ])
                 .then(([data, blacklistToken]) => {
                     if (blacklistToken) { return Promise.reject(new Error('blacklisted token')) }
-
-                    models.User.findById(data.id)
+                    console.log(data)
+                    userModel.findById(data.userId)
                         .then((user) => {
                             req.user = user;
-                            const userData = { username: user.username, userId: user.id }
-                            res.send({ status: true, userData })
+                            const userData = { name: user.name, email: user.email, userId: user.id }
+                            res.status(200).json({ status: true, userData })
                         });
                 })
                 .catch(err => {
                     if (['invalid token', 'token expired', 'blacklisted token', 'jwt must be provided'].includes(err.message)) {
-                        res.status(401).send({ error: 'UNAUTHORIZED!' });
+                        res.status(401).json({ status: false, error: 'UNAUTHORIZED!' });
                         return;
                     }
                     res.send({ status: false })
@@ -60,8 +60,8 @@ module.exports = {
                                 return;
                             }
                             req.user = userData;
-                            const token = createToken({ userID: req.user.id });
-                            res.status(200).json({ status: true, token })
+                            const token = createToken({ userId: req.user.id });
+                            res.status(200).json({ status: true, token, userData: { name: userData.name, email: userData.email, userId: userData.id } })
                             return;
                         })
                         .catch(err => console.log(err))
@@ -74,8 +74,8 @@ module.exports = {
                 .then((user) => {
                     req.user = user;
                     // signin(req, res);
-                    const token = createToken({ userID: req.user.id });
-                    res.status(200).json({ status: true, token })
+                    const token = createToken({ userId: req.user.id });
+                    res.status(200).json({ status: true, token, userData: { name: user.name, email: user.email, userId: user.id } })
                     return;
                 })
                 .catch(err => {
@@ -95,40 +95,35 @@ module.exports = {
             let { oldPassword, password } = req.body;
             userModel.findById(user.id)
                 .then((user) => {
-                    Promise.all([user, user.matchPassword(oldPassword)])
-                        .then(([user, match]) => {
-                            if (!match) {
-                                res.status(401).json({ status: false, msg: 'Old Password doesn\'t correct' })
-                                // res.render('password-change', { user, errors: { password: 'Old Password doesn\'t correct' } })
-                                return;
-                            }
-                            userModel.findByIdAndUpdate(user.id, { password })
-                                .then((a) => {
-                                    console.log(a)
-                                    res.status(201).json({ status: true, msg: 'Passwod is changed !' })
-                                    // res.redirect('/');
-                                    return
-                                })
-                                .catch(err => {
-                                    res.status(400).json({ status: false, msg: err.message })
-                                    console.log(err)
-                                    return
-                                }
-                                )
-                        })
-                        .catch(err => console.log(err))
+                    return Promise.all([user, user.matchPassword(oldPassword)])
                 })
-                .catch(err => console.log(err))
+                .then(([user, match]) => {
+                    if (!match) {
+                        res.status(401).json({ status: false, msg: 'Old Password doesn\'t correct' })
+                        return;
+                    }
+                   return userModel.findByIdAndUpdate(user.id, { password })
+                })
+                .then((a) => {
+                    console.log(a)
+                    res.status(201).json({ status: true, msg: 'Passwod is changed !' })
+                    // res.redirect('/');
+                    return
+                })
+                .catch(err => {
+                    res.status(400).json({ status: false, msg: err })
+                    return
+                })
         },
         nameChange: (req, res) => {
             const user = req.user;
             const { name } = req.body;
-            console.log(user, name)
+            // console.log(user, name)
             // return
             // userModel.findByIdAndUpdate(user.id, { name }, { runValidators: true })
             userModel.findByIdAndUpdate(user.id, { name }, { runValidators: true })
                 .then((user) => {
-                    console.log(user)
+                    // console.log(user)
                     res.status(200).json({ status: true, msg: 'Name is changed!' })
                     return
                 })

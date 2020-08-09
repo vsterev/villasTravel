@@ -5,10 +5,9 @@ module.exports = {
     get: {
         all: (req, res) => {
             const user = req.user;
-            reservationModel.find({ creatorid: user.id })
+            reservationModel.find({ creatorId: user.id }).populate('villaId')
                 .then(reservations => {
                     res.status(200).json({ status: true, reservations })
-                    console.log(reservations)
                 })
                 .catch(err => {
                     res.status(404).json({ status: false, msg: err })
@@ -20,8 +19,11 @@ module.exports = {
             const reservationId = req.params.id;
             reservationModel.findById(reservationId).populate('villaId creatorId')
                 .then(reservation => {
+                    if (reservation.creatorId !== user.userId) {
+                        res.status(404).json({ status: false, msg: 'You don\'t have access to this booking!' })
+                        return
+                    }
                     res.status(200).json({ status: true, reservation })
-                    console.log(reservations)
                 })
                 .catch(err => {
                     res.status(404).json({ status: false, msg: err })

@@ -17,7 +17,7 @@ function auth() {
             if (blackListToken) {
                 return Promise.reject(new Error('blacklisted token'))
             }
-            userModel.findById(data.userID)
+            userModel.findById(data.userId)
                 .then(user => {
                     req.user = user;
                     next();

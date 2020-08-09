@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, "Please enter your Name"],
-        match: [/^[a-zA-Z0-9]{5,}$/, 'Name should contains minimum 5 digits from numbers or letters']
+        match: [/^[a-zA-Z ]{5,}$/, 'Name should contains minimum 5 letters']
     },
     email: {
         type: String,
@@ -57,18 +57,19 @@ userSchema.pre('findOneAndUpdate', function (next) {
         const saltGenerate = bcrypt.genSalt(9)
         saltGenerate
             .then(salt => {
-                if(!/^[a-zA-Z0-9]{5,}$/.test(this._update['password'])) {
-                    throw new Error ('Password should contains minimum 5 digits from numbers or letters')
+                if (!/^[a-zA-Z0-9]{5,}$/.test(this._update['password'])) {
+                    return Promise.reject('Password should contains minimum 5 digits from numbers or letters')
                 }
                 const hash = bcrypt.hash(this._update['password'], salt)
-                Promise.all([salt, hash])
-                    .then(([salt, hash]) => {
-                        this._update['password'] = hash;
-                        next();
-                    })
-                    .catch(err => console.log(err))
+                return Promise.all([salt, hash])
+
+                // .catch(err => console.log(err))
             })
-            .catch(err1 => console.log(err))
+            .then(([salt, hash]) => {
+                this._update['password'] = hash;
+                next();
+            })
+            .catch(err => next(err))
         return;
     }
     // return;

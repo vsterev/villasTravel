@@ -17,7 +17,7 @@ module.exports = {
         },
         allVillasForUser: (req, res, next) => {
             const user = req.user;
-            villaModel.find({ creatorId: user.id })
+            villaModel.find({ creatorId: user.id }).populate('reservationId').populate('creatorId')
                 .then(villas => {
                     res.status(200).json({ status: true, villas })
                 })
@@ -29,7 +29,7 @@ module.exports = {
         villaDetails: (req, res, next) => {
             const villaId = req.params.id;
             const user = req.user;
-            villaModel.findById(villaId).populate('creatorId reservations')
+            villaModel.findById(villaId).populate('creatorId reservationId')
                 .then(villa => {
                     villa.isCreator = villa.creatorId === user.id;
                     villa.isLiked = villa.likes.includes(user.id)
