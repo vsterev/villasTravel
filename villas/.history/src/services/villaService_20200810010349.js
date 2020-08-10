@@ -16,19 +16,8 @@ const villaService = {
             {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(res => res.json())
-            .catch(err => console.log(err))
-    },
-    getVillasExtended: (data) => {
-        return fetch('http://localhost:4000/offer/all-offers/extended',
-            {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': token
                 }
             })
             .then(res => res.json())

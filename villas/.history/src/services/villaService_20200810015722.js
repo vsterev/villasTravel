@@ -23,7 +23,7 @@ const villaService = {
             .catch(err => console.log(err))
     },
     getVillasExtended: (data) => {
-        return fetch('http://localhost:4000/offer/all-offers/extended',
+        return fetch('http://localhost:4000/offer/all-offers/3',
             {
                 method: 'POST',
                 body: JSON.stringify(data),

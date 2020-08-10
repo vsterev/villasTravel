@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, {useContext} from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import HomePage from './components/pages/homePage'
 import HomePageAuth from './components/pages/homePageAuth'
@@ -14,15 +14,15 @@ import BookVillaPage from './components/pages/bookVillaPage'
 import DetailsReservationPage from './components/pages/detailsReservationPage'
 import AuthContext from './utils/context'
 const Navigation = () => {
-    const { loggedIn } = useContext(AuthContext)
+    const {loggedIn} = useContext(AuthContext)
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/" exact render={!loggedIn ? () => <HomePage /> : () => <HomePageAuth />} />
+                <Route path="/" exact render={!loggedIn ? <HomePage />:<HomePageAuth />} />
                 {/* <Route path="/login" render={(props) => <LoginPage {...props} />} /> */}
                 {/* <Route path="/login" render={!loggedIn ? (props) => <LoginPage {...props}/> : (props) => <HomePage {...props}/>} /> */}
-                <Route path="/login" component={LoginPage} />
-                <Route path="/logout" component={Logout} />
+                <Route path="/login" component = {LoginPage} />
+                <Route path="/logout" component = {Logout} />
                 <Route path="/register" component={RegisterPage} />
                 <Route path="/profile" component={ProfilePage} />
                 <Route path="/password-change" component={PasswordChangePage} />

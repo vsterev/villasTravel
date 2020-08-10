@@ -4,6 +4,7 @@ const auth = require('../utils/auth')
 const router = Router();
 
 router.get('/all-offers/user', auth(), villaController.get.allVillasForUser)
+router.post('/all-offers/extended', villaController.post.allVillasExtended)
 router.get('/all-offers/:limit', villaController.get.allVillas)
 router.post('/create', auth(), villaController.post.create)
 router.post('/edit/:id', auth(), villaController.post.edit)

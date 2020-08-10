@@ -14,7 +14,7 @@ module.exports = {
                     res.status(404).json({ status: false, msg: { err } })
                     console.log(err)
                 })
-        },
+        }, 
         allVillasForUser: (req, res, next) => {
             const user = req.user;
             villaModel.find({ creatorId: user.id }).populate('reservationId').populate('creatorId')
@@ -171,7 +171,35 @@ module.exports = {
                     res.status(404).json({ status: false, msg: err })
                     console.log(err)
                 })
+        },
+        allVillasExtended: (req, res, next) => {
+            // const user = req.user;
+            const { from, to, search } = req.body;
+            let query = {};
+            if (search) {
+              query = { ...query, name: { $regex: search } };
+            }
+            if (to) {
+              query = { ...query, price: { $lte: +to } };
+            }
+            if (from) {
+              query = {
+                ...query,
+                price: { ...query.price, $gte: +from }
+              };
+            }
+            villaModel.find(query).sort({ 'likes': -1, 'created_аt': -1 })
+            // villaModel.find(query).sort({ 'likes': -1, 'created_аt': -1 }).limit(+limit)
+                .then(villas => {
+                    // res.render('homeAuth', { title: 'Trip home page', user, trips })
+                    res.status(200).json({ status: true, villas })
+                })
+                .catch(err => {
+                    res.status(404).json({ status: false, msg: { err } })
+                    console.log(err)
+                })
         }
     }
+ 
 }
 

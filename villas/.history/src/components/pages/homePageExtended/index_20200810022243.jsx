@@ -1,13 +1,13 @@
 import React from 'react'
 import NavBar from '../../navbar'
-import HomeNotAuth from '../../homeNotAuth'
+import HomeAuth from '../../homeAuth'
 
-const Homepage = (props) => {
+const HomepageAuth = (props) => {
     return (
         <React.Fragment>
             <NavBar />
-            <HomeNotAuth />
+            <HomeAuth />
         </React.Fragment>
     )
 }
-export default Homepage
+export default HomepageAuth
