@@ -58,4 +58,4 @@ only  the user, who created (added) property can:
 - edit the property firlds
 - delete the property. 
 
-***Note Please rate me with 6 point :)***
+***Note Please rate me with 6 points :)***
