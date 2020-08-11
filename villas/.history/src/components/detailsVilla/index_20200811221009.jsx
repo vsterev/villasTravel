@@ -120,7 +120,7 @@ const VillaDetail = () => {
                         <h5>details & description:</h5>
                     </Col>
                     <Col>
-                       
+                        <h5>availible stay:</h5>
                     </Col>
 
                 </Row>

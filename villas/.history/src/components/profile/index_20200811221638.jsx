@@ -58,10 +58,8 @@ const Profile = () => {
                         <Row>
                             <Col className="text-center">
                                 <Card>
-                                    <Card.Header>
-                                        <b>Administration tools</b>
-                                    </Card.Header>
                                     <Card.Body>
+                                        <Card.Title>Administration tools</Card.Title>
                                         <Card.Text>
                                             <div>name: <b>{user.name}</b> </div>
                                             <div>email: <b>{user.email}</b> </div>
@@ -87,8 +85,8 @@ const Profile = () => {
                         <Row>
                             <Col>
                                 <Card>
-                                    <Card.Header><b>your own properties in the system:</b></Card.Header>
                                     <Card.Body>
+                                        <Card.Title>your own properties in the system:</Card.Title>
                                         <Card.Text>
                                             <div>
                                                 {villas.length !== 0 && villas.map((villa, id) => {
@@ -105,11 +103,10 @@ const Profile = () => {
                         <Row>
                             <Col>
                                 <Card>
-                                    <Card.Header>
-                                        <b> your booked holidays in the system:</b>
-                                        </Card.Header>
                                     <Card.Body>
-
+                                        <Card.Header>
+                                            your booked holidays in the system:
+                                        </Card.Header>
                                         <Card.Text>
                                             {reservations.length !== 0 && reservations.map((reservation, id) => {
                                                 return <p><Row key={reservation._id}><Col xs={4}>name: {reservation.villaId.name}: </Col><Col><Button onClick={() => history.push(`/villa/book/details/${reservation._id}`)}>more info</Button></Col></Row></p>

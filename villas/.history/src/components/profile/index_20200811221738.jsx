@@ -58,10 +58,8 @@ const Profile = () => {
                         <Row>
                             <Col className="text-center">
                                 <Card>
-                                    <Card.Header>
-                                        <b>Administration tools</b>
-                                    </Card.Header>
                                     <Card.Body>
+                                        <Card.Title>Administration tools</Card.Title>
                                         <Card.Text>
                                             <div>name: <b>{user.name}</b> </div>
                                             <div>email: <b>{user.email}</b> </div>
@@ -87,8 +85,8 @@ const Profile = () => {
                         <Row>
                             <Col>
                                 <Card>
-                                    <Card.Header><b>your own properties in the system:</b></Card.Header>
                                     <Card.Body>
+                                        <Card.Title>your own properties in the system:</Card.Title>
                                         <Card.Text>
                                             <div>
                                                 {villas.length !== 0 && villas.map((villa, id) => {
@@ -106,7 +104,7 @@ const Profile = () => {
                             <Col>
                                 <Card>
                                     <Card.Header>
-                                        <b> your booked holidays in the system:</b>
+                                        <h4> your booked holidays in the system:</h4>
                                         </Card.Header>
                                     <Card.Body>
 

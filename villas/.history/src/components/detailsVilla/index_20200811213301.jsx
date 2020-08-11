@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { Col, Row, Container, Badge, Button, Card } from 'react-bootstrap'
+import { Col, Row, Container, Badge, Button } from 'react-bootstrap'
 import villaService from '../../services/villaService'
 import parseCookie from '../../utils/parseCookie'
 import AuthContext from '../../utils/context'
@@ -120,7 +120,7 @@ const VillaDetail = () => {
                         <h5>details & description:</h5>
                     </Col>
                     <Col>
-                       
+                        <h5>availible stay:</h5>
                     </Col>
 
                 </Row>
@@ -129,17 +129,11 @@ const VillaDetail = () => {
                         {description}
                     </Col>
                     <Col>
-                        <Card>
-                            <Card.Header>Price</Card.Header>
-                            <Card.Body>
-                                <Card.Title>{price} Eur </Card.Title>
-                                <Card.Text>
-                                {date}<br/>
-                                stay {nights} nights
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
-
+                        from {date} <br />
+                        for {nights} nights
+                        <br />
+                        <br />
+                        <h5>{price} Eur</h5>
                     </Col>
                 </Row>
                 <Row>

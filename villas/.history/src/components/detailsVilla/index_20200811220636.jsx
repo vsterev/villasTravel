@@ -120,7 +120,7 @@ const VillaDetail = () => {
                         <h5>details & description:</h5>
                     </Col>
                     <Col>
-                       
+                        <h5>availible stay:</h5>
                     </Col>
 
                 </Row>
@@ -129,16 +129,16 @@ const VillaDetail = () => {
                         {description}
                     </Col>
                     <Col>
-                        <Card>
-                            <Card.Header>Price</Card.Header>
+                        {/* <Card>
+                            <Card.Head>Price</Card.Head>
                             <Card.Body>
                                 <Card.Title>{price} Eur </Card.Title>
                                 <Card.Text>
-                                {date}<br/>
-                                stay {nights} nights
+                                    from {date} <br />
+                        for {nights} nights
                                 </Card.Text>
                             </Card.Body>
-                        </Card>
+                        </Card> */}
 
                     </Col>
                 </Row>

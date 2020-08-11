@@ -59,7 +59,7 @@ const Profile = () => {
                             <Col className="text-center">
                                 <Card>
                                     <Card.Header>
-                                        <b>Administration tools</b>
+                                        Administration tools
                                     </Card.Header>
                                     <Card.Body>
                                         <Card.Text>

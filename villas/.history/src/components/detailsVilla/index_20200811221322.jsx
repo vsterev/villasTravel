@@ -129,7 +129,7 @@ const VillaDetail = () => {
                         {description}
                     </Col>
                     <Col>
-                        <Card>
+                        <Card bg="light">
                             <Card.Header>Price</Card.Header>
                             <Card.Body>
                                 <Card.Title>{price} Eur </Card.Title>

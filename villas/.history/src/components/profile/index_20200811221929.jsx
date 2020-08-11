@@ -58,10 +58,8 @@ const Profile = () => {
                         <Row>
                             <Col className="text-center">
                                 <Card>
-                                    <Card.Header>
-                                        <b>Administration tools</b>
-                                    </Card.Header>
                                     <Card.Body>
+                                        <Card.Title>Administration tools</Card.Title>
                                         <Card.Text>
                                             <div>name: <b>{user.name}</b> </div>
                                             <div>email: <b>{user.email}</b> </div>

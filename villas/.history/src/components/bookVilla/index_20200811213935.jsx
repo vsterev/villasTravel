@@ -78,7 +78,7 @@ const BookVilla = () => {
         <div>
                 <h2 className="header">Book - {villaName} in {region}</h2>
                 <div><img src={imageUrl} width="950" alt={villaName} /></div>
-                <div>date chek-in: {date} for {nights} nights</div>
+                <div>date chek-in: {moment(date,'DD-MM-YYYY')} for {nights} nights</div>
                 <div>maximum acommodated person: {beds}</div>
                 <div>price: {price} EUR</div>
                 <div><textarea name="priceDescription" value={priceDescription} disabled cols="60" rows='6'></textarea></div>
