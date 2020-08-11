@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+pimport React, { useContext, useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import AuthConext from '../../utils/context'
 import reservationService from '../../services/reservationService'
@@ -90,28 +90,11 @@ const Profile = () => {
                                         <Card.Text>
                                             <div>
                                                 {villas.length !== 0 && villas.map((villa, id) => {
-                                                    return <p><Row key={villa._id}><Col xs={4}>name: {villa.name} in {villa.region}: </Col><Col><Button onClick={() => history.push(`/villa/edit/${villa._id}`)}>more info </Button></Col></Row></p>
+                                                    return <Row key={villa._id}><p><Col xs={4}>{villa.name} in {villa.region}: </Col><Col><Button onClick={() => history.push(`/villa/edit/${villa._id}`)}>more info </Button></Col></p></Row>
                                                 })}
                                                 {villas.length === 0 && <h4> You don't have added your own villas!</h4>}
                                             </div>
 
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <Card>
-                                    <Card.Body>
-                                        <Card.Title>
-                                            your booked holidays in the system:
-                                        </Card.Title>
-                                        <Card.Text>
-                                            {reservations.length !== 0 && reservations.map((reservation, id) => {
-                                                return <p><Row key={reservation._id}><Col xs={4}>name: {reservation.villaId.name}: </Col><Col><Button onClick={() => history.push(`/villa/book/details/${reservation._id}`)}>more info</Button></Col></Row></p>
-                                            })}
-                                            {reservations.length === 0 && <h3> You don't have any bookings in the system!</h3>}
                                         </Card.Text>
                                     </Card.Body>
                                 </Card>
@@ -123,6 +106,15 @@ const Profile = () => {
                     </Col>
                 </Row>
             </Container>
+
+            <div>
+                {reservations.length !== 0 && <div><h4>Your booked holidays in the system: </h4></div>}
+                {reservations.length !== 0 && reservations.map((reservation, id) => {
+                    return <div key={reservation._id}>villa name: {reservation.villaId.name}: <button onClick={() => history.push(`/villa/book/details/${reservation._id}`)}>more info</button></div>
+                })}
+                {reservations.length === 0 && <h3> You don't have any bookings in the system!</h3>}
+            </div>
+
         </div >
 
     )

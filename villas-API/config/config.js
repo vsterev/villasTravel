@@ -1,4 +1,4 @@
-const env = process.env.NODE_ENV || 'cloud';
+const env = process.env.NODE_ENV || 'local';
 const DB_PASS = process.env.DB_PASS;
 const DB_USER = process.env.DB_USER;
 const config = {

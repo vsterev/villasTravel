@@ -123,6 +123,15 @@ const Profile = () => {
                     </Col>
                 </Row>
             </Container>
+
+            <div>
+                {reservations.length !== 0 && <div><h4>Your booked holidays in the system: </h4></div>}
+                {reservations.length !== 0 && reservations.map((reservation, id) => {
+                    return <div key={reservation._id}>villa name: {reservation.villaId.name}: <button onClick={() => history.push(`/villa/book/details/${reservation._id}`)}>more info</button></div>
+                })}
+                {reservations.length === 0 && <h3> You don't have any bookings in the system!</h3>}
+            </div>
+
         </div >
 
     )

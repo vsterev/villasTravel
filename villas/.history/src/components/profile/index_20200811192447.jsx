@@ -104,14 +104,14 @@ const Profile = () => {
                             <Col>
                                 <Card>
                                     <Card.Body>
-                                        <Card.Title>
+                                        <CardDetail.Title>
                                             your booked holidays in the system:
-                                        </Card.Title>
+                                        </CardDetail.Title>
                                         <Card.Text>
-                                            {reservations.length !== 0 && reservations.map((reservation, id) => {
+                                            {/* {reservations.length !== 0 && reservations.map((reservation, id) => {
                                                 return <p><Row key={reservation._id}><Col xs={4}>name: {reservation.villaId.name}: </Col><Col><Button onClick={() => history.push(`/villa/book/details/${reservation._id}`)}>more info</Button></Col></Row></p>
                                             })}
-                                            {reservations.length === 0 && <h3> You don't have any bookings in the system!</h3>}
+                                            {reservations.length === 0 && <h3> You don't have any bookings in the system!</h3>} */}
                                         </Card.Text>
                                     </Card.Body>
                                 </Card>
@@ -123,6 +123,15 @@ const Profile = () => {
                     </Col>
                 </Row>
             </Container>
+
+            <div>
+                {reservations.length !== 0 && <div><h4>Your booked holidays in the system: </h4></div>}
+                {reservations.length !== 0 && reservations.map((reservation, id) => {
+                    return <div key={reservation._id}>villa name: {reservation.villaId.name}: <button onClick={() => history.push(`/villa/book/details/${reservation._id}`)}>more info</button></div>
+                })}
+                {reservations.length === 0 && <h3> You don't have any bookings in the system!</h3>}
+            </div>
+
         </div >
 
     )

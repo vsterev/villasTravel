@@ -76,8 +76,9 @@ const BookVilla = () => {
     }
     return (
         <div>
+            <section>
                 <h2 className="head">Book - {villaName} in {region}</h2>
-                <div><img src={imageUrl} width="950" alt={villaName} /></div>
+                {/* <div><img src={imageUrl} width="450" alt={villaName} /></div> */}
                 <div>date chek-in: {date} for {nights} nights</div>
                 <div>maximum acommodated person: {beds}</div>
                 <div>price: {price} EUR</div>
@@ -90,6 +91,7 @@ const BookVilla = () => {
                             <button disabled={!isAgree} type="submit" >Make reservation</button>
                         </div>
                     </form>}
+            </section>
         </div>
     )
 }

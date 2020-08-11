@@ -76,20 +76,17 @@ const BookVilla = () => {
     }
     return (
         <div>
-                <h2 className="head">Book - {villaName} in {region}</h2>
-                <div><img src={imageUrl} width="950" alt={villaName} /></div>
-                <div>date chek-in: {date} for {nights} nights</div>
-                <div>maximum acommodated person: {beds}</div>
-                <div>price: {price} EUR</div>
-                <div><textarea name="priceDescription" value={priceDescription} disabled cols="60" rows='6'></textarea></div>
-                <div><label>  confirm policy and price<input type="checkbox" checked={isAgree} onChange={() => setIsAgree(!isAgree)} id="checkbox" name="checkbox" /></label></div>
-                {isAgree &&
-                    <form onSubmit={reservationHandler}>
-                        {renderNames()}
-                        <div>
-                            <button disabled={!isAgree} type="submit" >Make reservation</button>
-                        </div>
-                    </form>}
+            <h2 className="head">Book - {villaName} in {region}</h2>
+            {/* <div><img src={imageUrl} width="450" alt={villaName} /></div> */}
+            <div>date chek-in: {date} for {nights} nights</div>
+            <div>maximum acommodated person: {beds}</div>
+            <div>price: {price} EUR</div>
+            <div><textarea name="priceDescription" value={priceDescription} disabled cols="60" rows='6'></textarea></div>
+            <div><label>  confirm policy and price<input type="checkbox" checked={isAgree} onChange={() => setIsAgree(!isAgree)} id="checkbox" name="checkbox" /></label></div>
+            {isAgree &&
+                <form onSubmit={reservationHandler}>
+                    {renderNames()}
+                    <div><button disabled={!isAgree} type="submit" >Make reservation</button></div></form>}
         </div>
     )
 }
