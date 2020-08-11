@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, "Please enter your Name"],
-        match: [/^[a-zA-Z ]{5,}$/, 'Name should contains minimum 5 letters']
+        match: [/^[a-zA-Z ]{5,}$/, 'Name should contains minimum 5 english letters']
     },
     email: {
         type: String,
@@ -13,7 +13,9 @@ const userSchema = new mongoose.Schema({
         validate: [
             {
                 validator: (v) => {
-                    return /^[a-zA-Z0-9@.]{5,}$/.test(v);
+                    // return /^[a-zA-Z0-9@.]{5,}$/.test(v);
+                    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(v);
+                    return 	
                 },
                 message: props => `${props.value} is not a valid email`
             }

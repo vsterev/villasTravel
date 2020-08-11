@@ -1,17 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-
+// import './index.css';
+// import './site.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Auth from './utils/auth'
 import * as serviceWorker from './serviceWorker';
 import Navigation from './navigation';
+import Jumbotron from 'react-bootstrap/Jumbotron';
+import Container from 'react-bootstrap/Container';
 
 ReactDOM.render(
   <React.StrictMode>
-
-    <Auth>
-      <Navigation />
-    </Auth>
+    <Container>
+      {/* <Jumbotron> */}
+        <Auth>
+          <Navigation />
+        </Auth>
+      {/* </Jumbotron> */}
+    </Container>
   </React.StrictMode>,
   document.getElementById('root')
 );

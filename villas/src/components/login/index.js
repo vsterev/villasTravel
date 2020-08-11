@@ -1,10 +1,9 @@
 import React, { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
-import styles from './register.module.css'
-// import Post from '../shared/post'
+import { Form, Button, Alert } from 'react-bootstrap'
+import './style.css'
 import userService from '../../services/userService'
 import AuthContext from '../../utils/context'
-// static contextType = AuthContext
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -25,38 +24,28 @@ const Login = () => {
                     setErrMassage(e)
                 }
             )
-            // .then((res) => {
-            //     // if (!!res.username) {
-            //     //     return this.props.history.push('/')
-            //     // }
-            //     // console.log(res.error)
-            // })
+
             .catch(err => console.log(err))
     }
-    // const errorHandler = (e) => {
-    //     const { name } = e.target
-    //     console.log(name, this.state[name])
-    // }
-    // render() {
-    // const { email, password, loginError } = this.state;
     const isEnabled = email.length > 0 && password.length > 0
     return (
-        <div className={styles.Login}>
-            <form onSubmit={submitHandler}>
-                <div className={styles['form-control']}>
-                    <label>Email</label>
-                    <input type="text" onChange={(e) => setEmail(e.target.value)} value={email} name="email" />
-                </div>
-                <div className={styles['form-control']}>
-                    <label>Password</label>
-                    <input type="password" onChange={(e) => setPassword(e.target.value)} value={password} name="password" />
-                </div>
-                <div className={styles['form-control']}>
-                    <button type="submit" disabled={!isEnabled}>Login</button>
-                </div>
-                {!!errMassage && <div className={styles.errormsg}>{errMassage}</div>}
-            </form>
-        </div>
+        <section>
+            <h2 className="header">Login form</h2>
+            <div className="card-deck d-flex justify-content-center">
+                <Form onSubmit={submitHandler}>
+                    <Form.Group>
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    </Form.Group>
+                   {!!errMassage && <Alert variant="danger">{errMassage}</Alert>}
+                    <Button variant="primary" type="submit" disabled={!isEnabled}>Submit</Button>
+                </Form>
+            </div>
+        </section>
     )
     // }
 }

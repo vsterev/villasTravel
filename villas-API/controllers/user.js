@@ -25,7 +25,7 @@ module.exports = {
             ])
                 .then(([data, blacklistToken]) => {
                     if (blacklistToken) { return Promise.reject(new Error('blacklisted token')) }
-                    console.log(data)
+                    // console.log(data)
                     userModel.findById(data.userId)
                         .then((user) => {
                             req.user = user;
@@ -105,7 +105,7 @@ module.exports = {
                    return userModel.findByIdAndUpdate(user.id, { password })
                 })
                 .then((a) => {
-                    console.log(a)
+                    // console.log(a)
                     res.status(201).json({ status: true, msg: 'Passwod is changed !' })
                     // res.redirect('/');
                     return

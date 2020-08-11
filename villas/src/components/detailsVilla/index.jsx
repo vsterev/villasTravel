@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
+import { Col, Row, Container, Badge, Button } from 'react-bootstrap'
 import villaService from '../../services/villaService'
 import parseCookie from '../../utils/parseCookie'
 import AuthContext from '../../utils/context'
+import CarouselDetail from '../shared/carousel'
+import './style.css'
 
 const VillaDetail = () => {
     const { user } = useContext(AuthContext)
@@ -72,22 +75,92 @@ const VillaDetail = () => {
     }
     return (
         <div>
-            <h2>Details Viilla Page</h2>
-            <h3> {villaName} in {region}</h3>
-            {isBooked ? <div>offer is booked</div> : <div>offer is still available</div>}
-            <img src={imageUrl} width="600" alt={villaName} />
-            <div>Likes: {likes.length} -
-            {likes.includes(user.userId) ? <span> you have allready liked this villa</span> : <button onClick={likeHandler}>Like this villa</button>}
-            </div>
-            <div>availible stay from: {date} for {nights} nights</div>
-            <div>price for stay: {price} EUR</div>
-            <div>policy: {priceDescription}</div>
-            <div>maximum accomodation - {beds} person</div>
-            <div>description: {description}</div>
-            {imageUrl2 && <img src={imageUrl2} width="400" alt={villaName} />}
-            {imageUrl3 && <img src={imageUrl3} width="400" alt={villaName} />}
-            {!isBooked && <div><button onClick={()=>history.push(`/villa/book/${villaId}`)}>Book it now</button></div>}
+            <h2 className="header">{villaName} - {region}</h2>
+            <Container >
+                <Row className="justify-content-md-center">
+                    <Col>
+                        <CarouselDetail img1={imageUrl} img2={imageUrl2} img3={imageUrl3} />
+                    </Col>
+                    {/* <Col><h3> {villaName} in {region}</h3></Col>
+                    <Col>{isBooked ? <span color="red">offer is booked</span> : <span>offer is still available</span>}</Col> */}
+                </Row>
+                <Row>
+                    <Col>
+                        <h4>
+                            <Badge variant="primary">Likes: {likes.length}</Badge>
+                            {' '}
+                            {isBooked ? <Badge variant="danger">booked</Badge> : <Badge variant="success">available</Badge>}
+                        </h4>
+                    </Col>
+                    <Col>
+                    </Col>
+                    <Col>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        {likes.includes(user.userId) ? <Button disabled>Liked</Button> : <Button onClick={likeHandler}>Like it</Button>}
+                    </Col>
+                    <Col>
+                    </Col>
+                    <Col>
+                    </Col>
+                </Row>
+                <Row className="justify-content-md-center">
+                    <Col>
+                    </Col>
+                    <Col>
+                        <br></br>
+                    </Col>
+                    <Col>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col xs={10}>
+                        <h5>details & description:</h5>
+                    </Col>
+                    <Col>
+                        <h5>availible stay:</h5>
+                    </Col>
 
+                </Row>
+                <Row>
+                    <Col xs={10}>
+                        {description}
+                    </Col>
+                    <Col>
+                        from {date} <br />
+                        for {nights} nights
+                        <br />
+                        <br />
+                        <h5>{price} Eur</h5>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <h5>price terms & conditions:</h5>
+                    </Col>
+                    <Col>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <div>availible stay from: {date} for {nights} nights</div>
+                        <div>policy: {priceDescription}</div>
+                        <div>maximum accomodation - {beds} person</div>
+                    </Col>
+                    <Col>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col xs={4}>
+                        <div>price for stay: {price} EUR</div>
+                    </Col>
+                    <Col>
+                        {!isBooked && <Button onClick={() => history.push(`/villa/book/${villaId}`)}>Book it now</Button>}
+                    </Col>
+                </Row>
+            </Container>
             {!!msg && <div>{msg}</div>}
         </div>
     )

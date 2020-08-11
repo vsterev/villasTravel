@@ -6,31 +6,18 @@ const userService = {
                 method: 'POST',
                 headers: { 'Content-type': 'application/json' }
             })
-            .then(response => {
-                // const authToken = response.headers.get('Authorization')
-                // if (authToken) {
-                //     document.cookie = `x-auth-token=${authToken}`
-                // }
-                console.log(response)
-                // const token = response.token
-                // console.log(token)
-                // if (token) {
-                //     document.cookie = `x-auth-token=${token}`
-                // }
-                return response.json()
+            .then(res => {
+                return res.json()
             })
             .then(registred => {
+                console.log(registred)
                 if (registred.status) {
                     const token = registred.token
-                    console.log(token)
                     if (token) {
                         document.cookie = `x-auth-token=${token}`
                     }
-                    if (!!registred.emaill) {
-                        onSuccess(registred.userData)
-                    }
+                    onSuccess(registred.userData)
                 } else {
-                    // onFailure(`Unsuccessful login - user not exists or password incorrect !`)
                     onFailure(registred.msg)
                 }
             })
@@ -43,13 +30,8 @@ const userService = {
             body: JSON.stringify(data),
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
-            // credentials: 'include'
         })
             .then(res => {
-                // const authToken = res.headers.get('Authorization')
-                // if (authToken) {
-                //     document.cookie = `x-auth-token=${authToken}`
-                // }
                 return res.json()
             })
             .then(res => {
@@ -79,7 +61,7 @@ const userService = {
             .catch(err => console.error(err))
 
     },
-    nameChange: function (data,token) {
+    nameChange: function (data, token) {
         return fetch('http://localhost:4000/user/namechange', {
             method: 'PUT',
             body: JSON.stringify(data),
@@ -91,7 +73,7 @@ const userService = {
             .then(promise => promise.json())
             .catch(err => console.log(err))
     },
-    passChange: function (data,token) {
+    passChange: function (data, token) {
         return fetch('http://localhost:4000/user/passchange', {
             method: 'PUT',
             body: JSON.stringify(data),

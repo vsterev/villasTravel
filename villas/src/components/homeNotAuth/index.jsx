@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import villaService from '../../services/villaService'
+import Card from '../shared/card'
+import RenderCards from '../shared/renderCards'
+import './style.css'
+// import { CardGroup, CardDeck, CardColumns } from 'react-bootstrap'
 const HomeNotAuth = () => {
     const [villas, setVillas] = useState([])
     useEffect(() => {
@@ -10,16 +14,12 @@ const HomeNotAuth = () => {
             })
             .catch(err => console.log(err))
     }, [])
-    const renderVillas = () => {
-        return villas.map((villa, id) => {
-        return <div key={id}><Link to={`/villa/detail/${villa._id}`}>{villa.name}</Link> - {villa.region}, {villa.date}, {villa.price}, {villa.likes.length}, {!!villa.reservationId ? 'isBooked' : ''} </div>
-        })
-    }
     return (
         <div>
-            <h2>Home Page</h2>
-            {/* {villas} */}
-            {renderVillas()}
+            <h2 className="header">Our best offers ... </h2>
+            <div>
+                    <RenderCards Component={Card} villas={villas}/>
+            </div>
         </div>
     )
 }

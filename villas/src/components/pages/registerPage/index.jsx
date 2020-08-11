@@ -6,8 +6,9 @@ const RegisterPage = (props) => {
     return (
         <div>
             <NavBar />
-            <h1>Register Page</h1>
-            <Register />
+            <main>
+                <Register />
+            </main>
         </div>
 
     )

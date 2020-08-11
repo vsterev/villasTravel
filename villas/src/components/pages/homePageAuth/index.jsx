@@ -6,7 +6,9 @@ const HomepageAuth = (props) => {
     return (
         <React.Fragment>
             <NavBar />
-            <HomeAuth />
+            <main>
+                <HomeAuth />
+            </main>
         </React.Fragment>
     )
 }
