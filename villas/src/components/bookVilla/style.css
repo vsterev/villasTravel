@@ -1,3 +1,11 @@
 .header {
     text-align: center;
   }
+div.form-control {
+  text-align: center;
+  width: 100%
+}
+.names {
+  text-align: center;
+  width: 80%
+}
