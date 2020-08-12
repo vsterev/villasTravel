@@ -1,5 +1,5 @@
 # Anti-Covid Travel 2020 
-Project defense course React JS Softuni Course 
+Defense React project
 developed by Vassil Shterev
 
 ## Runing the project
