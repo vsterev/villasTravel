@@ -74,9 +74,9 @@ const VillaDetail = () => {
         // <div><input type="text"></input></div>)
     }
     return (
-        <div>
-            <h2 className="header">{villaName} - {region}</h2>
-            <Container >
+        <Container >
+            <div>
+                <h2 className="header">{villaName} - {region}</h2>
                 <Row className="justify-content-md-center">
                     <Col>
                         <CarouselDetail img1={imageUrl} img2={imageUrl2} img3={imageUrl3} />
@@ -120,7 +120,7 @@ const VillaDetail = () => {
                         <h5>details & description:</h5>
                     </Col>
                     <Col>
-                       
+
                     </Col>
 
                 </Row>
@@ -134,7 +134,7 @@ const VillaDetail = () => {
                             <Card.Body>
                                 <Card.Title>{price} Eur </Card.Title>
                                 <Card.Text>
-                                {date}<br/>
+                                    {date}<br />
                                 stay {nights} nights
                                 </Card.Text>
                             </Card.Body>
@@ -166,9 +166,9 @@ const VillaDetail = () => {
                         <Button onClick={() => history.push(`/villa/book/${villaId}`)} disabled={isBooked}>Book it now</Button>
                     </Col>
                 </Row>
-            </Container>
-            {!!msg && <div>{msg}</div>}
-        </div>
+                {!!msg && <div>{msg}</div>}
+            </div>
+        </Container>
     )
 }
 export default VillaDetail

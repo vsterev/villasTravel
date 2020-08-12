@@ -62,7 +62,7 @@ const Profile = () => {
                                         <b>Administration tools</b>
                                     </Card.Header>
                                     <Card.Body>
-                                        <Card.Text>
+                                        {/* <Card.Text> */}
                                             <div>name: <b>{user.name}</b> </div>
                                             <div>email: <b>{user.email}</b> </div>
                                             <br />
@@ -79,7 +79,7 @@ const Profile = () => {
                                                 </div>
                                             }
                                             <br />
-                                        </Card.Text>
+                                        {/* </Card.Text> */}
                                     </Card.Body>
                                 </Card>
                             </Col>
@@ -89,15 +89,15 @@ const Profile = () => {
                                 <Card>
                                     <Card.Header><b>your own properties in the system:</b></Card.Header>
                                     <Card.Body>
-                                        <Card.Text>
+                                        {/* <Card.Text> */}
                                             <div>
                                                 {villas.length !== 0 && villas.map((villa, id) => {
-                                                    return <p><Row key={villa._id}><Col xs={4}>name: {villa.name} in {villa.region}: </Col><Col><Button onClick={() => history.push(`/villa/edit/${villa._id}`)}>more info </Button></Col></Row></p>
+                                                    return <div key={id}> <Row key={id}><Col xs={4}>name: {villa.name} in {villa.region}: </Col><Col><Button onClick={() => history.push(`/villa/edit/${villa._id}`)}>more info </Button></Col></Row><br /></div>
                                                 })}
                                                 {villas.length === 0 && <h4> You don't have added your own villas!</h4>}
                                             </div>
 
-                                        </Card.Text>
+                                        {/* </Card.Text> */}
                                     </Card.Body>
                                 </Card>
                             </Col>
@@ -110,12 +110,12 @@ const Profile = () => {
                                         </Card.Header>
                                     <Card.Body>
 
-                                        <Card.Text>
+                                        {/* <Card.Text> */}
                                             {reservations.length !== 0 && reservations.map((reservation, id) => {
-                                                return <p><Row key={reservation._id}><Col xs={4}>name: {reservation.villaId.name}: </Col><Col><Button onClick={() => history.push(`/villa/book/details/${reservation._id}`)}>more info</Button></Col></Row></p>
+                                                return <div key={id}><Row ><Col xs={4}>name: {reservation.villaId.name}: </Col><Col><Button onClick={() => history.push(`/villa/book/details/${reservation._id}`)}>more info</Button></Col></Row><br /></div>
                                             })}
                                             {reservations.length === 0 && <h3> You don't have any bookings in the system!</h3>}
-                                        </Card.Text>
+                                        {/* </Card.Text> */}
                                     </Card.Body>
                                 </Card>
                             </Col>

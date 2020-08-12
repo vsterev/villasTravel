@@ -10,15 +10,15 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
 
 ReactDOM.render(
-  <React.StrictMode>
+  // <React>
     <Container>
       {/* <Jumbotron> */}
         <Auth>
           <Navigation />
         </Auth>
       {/* </Jumbotron> */}
-    </Container>
-  </React.StrictMode>,
+    </Container>,
+  // </React>,
   document.getElementById('root')
 );
 
