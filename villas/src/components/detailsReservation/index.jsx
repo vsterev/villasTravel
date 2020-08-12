@@ -4,6 +4,9 @@ import reservationService from '../../services/reservationService'
 import villaService from '../../services/villaService'
 import parseCookie from '../../utils/parseCookie'
 import AuthContext from '../../utils/context'
+import { ListGroup, InputGroup, FormControl, Card, Col, Image, Row, Container } from 'react-bootstrap'
+import AccordionDetail from '../shared/acordionDetail'
+import ImageBlock from '../shared/imageBlock'
 
 const VillaDetail = () => {
     const { user } = useContext(AuthContext)
@@ -70,32 +73,86 @@ const VillaDetail = () => {
             })
             .catch(err => console.log(err))
     }
-    const bookHandler = (e) => {
-        console.log(e.target.parent)
-        // <div><input type="text"></input></div>)
-    }
+
     return (
         <div>
-            <h2>Reservation Details</h2>
-            <h4>Toutists: </h4>
-            {clients.map((client,id)=><div key={id}>tourist {id+1}: {client}</div>)}
-            <h4>Comments: </h4>
-            {comments.length!==0 && comments.map((comment,id)=><div key={id}>comment {id+1}: {comment}</div>)}
-            <h2>Details Viilla Page</h2>
-            <h3> {villaName} in {region}</h3>
-            {isBooked ? <div>offer is booked</div> : <div>offer is still available</div>}
-            <img src={imageUrl} width="600" alt={villaName} />
-            <div>Likes: {likes.length} -
-            {likes.includes(user.userId) ? <span> you have allready liked this villa</span> : <button onClick={likeHandler}>Like this villa</button>}
-            </div>
-            <div>availible stay from: {date} for {nights} nights</div>
-            <div>price for stay: {price} EUR</div>
-            <div>policy: {priceDescription}</div>
-            <div>maximum accomodation - {beds} person</div>
-            <div>description: {description}</div>
-            {imageUrl2 && <img src={imageUrl2} width="400" alt={villaName} />}
-            {imageUrl3 && <img src={imageUrl3} width="400" alt={villaName} />}
-            {/* {!isBooked && <div><button onClick={()=>history.push(`/villa/book/${villaId}`)}>Book it now</button></div>} */}
+            <h2 className="header">Reservation Details</h2>
+
+            <Card>
+                <InputGroup className="mb-3">
+                    <InputGroup.Prepend>
+                        <InputGroup.Text id="inputGroup-sizing-default">Dates</InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl aria-label="Default" aria-describedby="inputGroup-sizing-default" value={`from: ${date} for ${nights} nights`} disabled />
+                </InputGroup>
+                <InputGroup className="mb-3">
+                    <InputGroup.Prepend>
+                        <InputGroup.Text id="inputGroup-sizing-default">Property</InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl aria-label="Default" aria-describedby="inputGroup-sizing-default" value={`${villaName} in ${region}`} disabled />
+                </InputGroup>
+                <InputGroup className="mb-3">
+                    <InputGroup.Prepend>
+                        <InputGroup.Text id="inputGroup-sizing-default">Price for stay</InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl aria-label="Default" aria-describedby="inputGroup-sizing-default" value={`${price} EUR`} disabled />
+                </InputGroup>
+
+                <InputGroup className="mb-3">
+                    <InputGroup.Prepend>
+                        <InputGroup.Text id="inputGroup-sizing-default">maximum accomodation</InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl aria-label="Default" aria-describedby="inputGroup-sizing-default" value={`${beds} tourists`} disabled />
+                </InputGroup>
+                <InputGroup className="mb-3">
+                    <InputGroup.Prepend>
+                        <InputGroup.Text>price terms & policy</InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl as="textarea" aria-label="With textarea" value={priceDescription} disabled />
+                </InputGroup>
+            </Card>
+
+            <Card>
+                <Card.Header className="text-center">
+                    <h6>Tourists </h6>
+                </Card.Header>
+                <ListGroup variant="flush">
+                    {clients.map((client, id) => {
+                        // return <div key={id}>{client}</div>
+                        return <ListGroup.Item key={id}><InputGroup className="mb-3" >
+                            <InputGroup.Prepend>
+                                <InputGroup.Text>First and last name</InputGroup.Text>
+                            </InputGroup.Prepend>
+                            <FormControl name="firstName" value={client.split(" ")[0]} disabled />
+                            <FormControl name="secondName" value={client.split(" ")[1]} disabled />
+                        </InputGroup >
+                        </ListGroup.Item>
+                    })
+                    }
+                </ListGroup>
+            </Card>
+            <Card>
+                <Card.Header >
+                    <h6>Comments</h6>
+                </Card.Header>
+                <ListGroup variant="flush">
+                    {comments.length === 0 &&
+                        <ListGroup.Item>
+                            No comments are added.
+                        </ListGroup.Item>
+                    }
+                    {comments.length !== 0 && comments.map((comment, id) => {
+                        return <ListGroup.Item key={id}>
+                            comment {id + 1}: {comment}
+                        </ListGroup.Item>
+                    })
+                    }
+                </ListGroup>
+            </Card>
+            <AccordionDetail title={'property description'} text={description}></AccordionDetail>
+
+            <br />
+            <ImageBlock img1={imageUrl} img2={imageUrl2} img3={imageUrl3} />
 
             {!!msg && <div>{msg}</div>}
         </div>

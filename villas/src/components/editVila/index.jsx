@@ -218,10 +218,10 @@ const EditVilla = () => {
                     <div className="header"><Button variant="primary" type="submit" >Edit property</Button></div>
 
                 </Form>
-<br />
+                <br />
                 <Card>
                     <Card.Header className="text-center">
-                       <h5>View bookings attached to this offer</h5>  {'            '}<Button onClick={bookingHandler}>Bookings</Button>
+                        <h5>view bookings attached to this offer</h5>  {'            '}<Button onClick={bookingHandler}>more ..</Button>
                     </Card.Header>
                     <ListGroup variant="flush">
                         {viewBookings && clientsNames.length !== 0 && clientsNames
@@ -237,33 +237,36 @@ const EditVilla = () => {
                                 </ListGroup.Item>
                             })
                         }
-{/* 
+                        {/* 
                         {reservations.length !== 0 && reservations.map((reservation, id) => {
                             return <ListGroup.Item key={id}><Row ><Col >{reservation.villaId.name}</Col><Col>{reservation.villaId.date}</Col><Col>{reservation.villaId.nights}</Col><Col><Button onClick={() => history.push(`/villa/book/details/${reservation._id}`)}>more info</Button></Col></Row></ListGroup.Item >
                         })}
                         {reservations.length === 0 && <h3> You don't have any bookings in the system!</h3>} */}
-
                     </ListGroup >
-                </Card>
+                    <ListGroup>
+                        {viewBookings && comments.length !== 0 &&
+                            <Card.Header>
+                                <h6>comments to this booking </h6>
+                            </Card.Header>}
+                        {viewBookings && comments.length !== 0 && comments.map((comment, id) => {
+                            return <ListGroup.Item key={id}>{comment}</ListGroup.Item>
+                        })}
 
-                {/* <div className="header"><h4>View bookings attached to this offer</h4><Button onClick={bookingHandler}>Bookings</Button></div>
-                {viewBookings && <h5>Names of clients</h5>}
-                {viewBookings && clientsNames.length !== 0 && clientsNames
-                    .map((client, id) => {
-                        // return <div key={id}>{client}</div>
-                        return <InputGroup key={id} className="mb-3" >
-                            <InputGroup.Prepend>
-                                <InputGroup.Text>First and last name</InputGroup.Text>
-                            </InputGroup.Prepend>
-                            <FormControl name="firstName" value={client.split(" ")[0]} />
-                            <FormControl name="secondName" value={client.split(" ")[1]} />
-                        </InputGroup >
-                    })
-                } */}
-                {viewBookings && !clientsNames.length !== 0 && <h5>Comment to this booking </h5>}
-                {viewBookings && comments.length !== 0 && comments.map((comment, id) => { return <div key={id}>{comment}</div> })}
-                {viewBookings && !clientsNames.length === 0 && <div>there is no booking till now</div>}
-                <div className="header"><h4>Delete this villa</h4><Button variant="danger" onClick={deleteHandler}>Delete </Button></div>
+                        {viewBookings && !clientsNames.length === 0 &&
+                            <ListGroup.Item>there is no booking till now</ListGroup.Item>
+                        }
+
+                    </ListGroup>
+                    <ListGroup className="text-center">
+                    <Card.Header><h6>delete your property</h6></Card.Header>
+                        <ListGroup.Item >
+                        <Button variant="danger" onClick={deleteHandler} >Delete </Button>
+                        </ListGroup.Item>
+                    </ListGroup>
+
+
+                </Card>
+                {/* <div className="header"><h4>Delete this villa</h4><Button variant="danger" onClick={deleteHandler}>Delete </Button></div> */}
 
             </div>
         </section>
