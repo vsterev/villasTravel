@@ -12,7 +12,7 @@ npm run start
 ```
 Api will be run on the localhost on port 4000
 
-### Then to start React application: 
+### second step - start React application: 
 ```bash
 cd villas
 npm run start
@@ -55,7 +55,7 @@ The Project Аnti Covid Travel 2020 is based on  Jave Script, for the  back-end 
 	- list of all bookings, made by a client,  with button  that  leads to a detailed information of the bookings
 ### Page for Editing of the property /fauthenticated user only/
 only  the user, who created (added) property can:
-- edit the property firlds
+- edit the property fields
 - delete the property. 
 
 ***Note Please rate me with 6 points :)***
