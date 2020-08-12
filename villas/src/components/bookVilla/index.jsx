@@ -92,16 +92,16 @@ const BookVilla = () => {
         }
         const comment = e.target.comment.value
         const dataParams = { clients, villaId, comment }
-        console.log(dataParams)
-        // reservationService.createReservation(dataParams, token) //Fa go pusna spira podavaneto na zaivkata kym bazata
-        //     .then(data => {
-        //         if (!data.status) {
-        //             setMsg(data.msg)
-        //             return
-        //         }
-        //         history.push('/profile')
-        //     })
-        //     .catch(err => console.log(err))
+        // console.log(dataParams)
+        reservationService.createReservation(dataParams, token) 
+            .then(data => {
+                if (!data.status) {
+                    setMsg(data.msg)
+                    return
+                }
+                history.push('/profile')
+            })
+            .catch(err => console.log(err))
     }
     return (
         <Container>
