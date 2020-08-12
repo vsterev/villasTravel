@@ -5,7 +5,7 @@ import reservationService from '../../services/reservationService'
 import userService from '../../services/userService'
 import villaService from '../../services/villaService'
 import parseCookie from '../../utils/parseCookie'
-import { Container, Row, Col, Button, Card } from 'react-bootstrap'
+import { Container, Row, Col, Button, Card, ListGroup } from 'react-bootstrap'
 import banner from './banner.gif'
 import CardDetail from '../shared/card'
 const Profile = () => {
@@ -88,17 +88,17 @@ const Profile = () => {
                             <Col>
                                 <Card>
                                     <Card.Header><b>your own properties in the system:</b></Card.Header>
-                                    <Card.Body>
+                                    <ListGroup variant="flush">
                                         {/* <Card.Text> */}
-                                            <div>
+                                            
                                                 {villas.length !== 0 && villas.map((villa, id) => {
-                                                    return <div key={id}> <Row key={id}><Col xs={4}>name: {villa.name} in {villa.region}: </Col><Col><Button onClick={() => history.push(`/villa/edit/${villa._id}`)}>more info </Button></Col></Row><br /></div>
+                                                    return <ListGroup.Item key={id}> <Row key={id} ><Col> {villa.name} in {villa.region} </Col><Col>{villa.date}</Col><Col>{villa.nights}</Col><Col><Button onClick={() => history.push(`/villa/edit/${villa._id}`)}>more info </Button></Col></Row></ListGroup.Item>
                                                 })}
                                                 {villas.length === 0 && <h4> You don't have added your own villas!</h4>}
-                                            </div>
+                                           
 
                                         {/* </Card.Text> */}
-                                    </Card.Body>
+                                    </ListGroup >
                                 </Card>
                             </Col>
                         </Row>
@@ -108,15 +108,15 @@ const Profile = () => {
                                     <Card.Header>
                                         <b> your booked holidays in the system:</b>
                                         </Card.Header>
-                                    <Card.Body>
+                                    <ListGroup variant="flush">
 
                                         {/* <Card.Text> */}
                                             {reservations.length !== 0 && reservations.map((reservation, id) => {
-                                                return <div key={id}><Row ><Col xs={4}>name: {reservation.villaId.name}: </Col><Col><Button onClick={() => history.push(`/villa/book/details/${reservation._id}`)}>more info</Button></Col></Row><br /></div>
+                                                return <ListGroup.Item  key={id}><Row ><Col >{reservation.villaId.name}</Col><Col>{reservation.villaId.date}</Col><Col>{reservation.villaId.nights}</Col><Col><Button onClick={() => history.push(`/villa/book/details/${reservation._id}`)}>more info</Button></Col></Row></ListGroup.Item >
                                             })}
                                             {reservations.length === 0 && <h3> You don't have any bookings in the system!</h3>}
                                         {/* </Card.Text> */}
-                                    </Card.Body>
+                                    </ListGroup >
                                 </Card>
                             </Col>
                         </Row>
