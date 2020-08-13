@@ -46,7 +46,7 @@ The Project Аnti Covid Travel 2020 is based on  Jave Script, for the  back-end 
 ### Home Page /unauthenticated user/:
 - shows a list of the 3 most popular properties,  sorted first by likes and second by creation date – from the newest to the oldest.   
 #
-## Home Page /authenticated user/:
+### Home Page /authenticated user/:
 - shows a list with all properties, but with a filter for search by property name, “price from” and “price up to”. 
 
 ### Adding a new property /authenticated user  only/:
