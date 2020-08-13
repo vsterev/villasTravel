@@ -69,10 +69,7 @@ const VillaDetail = () => {
             })
             .catch(err => console.log(err))
     }
-    const bookHandler = (e) => {
-        console.log(e.target.parent)
-        // <div><input type="text"></input></div>)
-    }
+ 
     return (
         <Container >
             <div>

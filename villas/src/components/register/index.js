@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { Form, Alert, Button } from 'react-bootstrap'
 import userService from '../../services/userService'
 import AuthContext from '../../utils/context'
+import styles from './register.module.css'
 
 const Register = (props) => {
     const [email, setEmail] = useState('')
@@ -23,7 +24,6 @@ const Register = (props) => {
         userService.register({ email, password, name },
             (data) => {
                 history.push('/')
-                console.log('userDATA', userData)
                 const { userData } = data
                 logIn(userData)
                 setSuccessMessage(e)
@@ -41,8 +41,7 @@ const Register = (props) => {
     const isEnabled = email.length > 0 && password.length > 0 && repass.length > 0 && name.length > 0
 
     return (
-        <section>
-            <h2 className="header">Registeration Form</h2>
+        <section className={styles.bg}>
             {/* <form onSubmit={buttonHandler}>
                 <label htmlFor="email">Email</label>
                 <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Please enter email" />
@@ -55,7 +54,8 @@ const Register = (props) => {
                 <button type="submit" disabled={!isEnabled}>Register</button>
                 {!!errorMessage && <span className="error" >{errorMessage}</span>}
             </form> */}
-            <div className="card-deck d-flex justify-content-center">
+            <div className={styles.form}>
+                   <h2>Register</h2> 
 
                 <Form onSubmit={buttonHandler}>
                     <Form.Group>

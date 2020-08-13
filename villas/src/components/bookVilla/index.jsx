@@ -3,7 +3,7 @@ import { useParams, useHistory } from 'react-router-dom'
 import villaService from '../../services/villaService'
 import reservationService from '../../services/reservationService'
 import parseCookie from '../../utils/parseCookie'
-import { Cards, Col, Form, Container, Row, Button, InputGroup, FormControl } from 'react-bootstrap'
+import {  Col, Form, Container, Row, Button, InputGroup, FormControl } from 'react-bootstrap'
 import './style.css'
 const BookVilla = () => {
     const [villaName, setVillaName] = useState('')

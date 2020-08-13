@@ -7,11 +7,9 @@ const RegisterPage = (props) => {
     return (
         <div>
             <NavBar />
-            <br />
             <main>
                 <Register />
             </main>
-            <br />
             <Footer />
         </div>
     )

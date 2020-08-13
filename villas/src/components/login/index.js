@@ -1,14 +1,14 @@
 import React, { useState, useContext } from 'react'
 import { useHistory, Link } from 'react-router-dom'
 import { Form, Button, Alert } from 'react-bootstrap'
-import './style.css'
+import styles from './login.module.css'
 import userService from '../../services/userService'
 import AuthContext from '../../utils/context'
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [errMassage, setErrMassage] = useState('')
-    const { logIn, user, loggedIn } = useContext(AuthContext)
+    const { logIn } = useContext(AuthContext)
     const history = useHistory()
     const submitHandler = (e) => {
         e.preventDefault();
@@ -29,9 +29,10 @@ const Login = () => {
     }
     const isEnabled = email.length > 0 && password.length > 0
     return (
-        <section>
-            <h2 className="header">Login form</h2>
-            <div className="card-deck d-flex justify-content-center">
+        <section className={styles.bg}>
+            {/* <div className="card-deck d-flex justify-content-center"> */}
+            <div className={styles.loginform}>
+                <h2>Login</h2>
                 <Form onSubmit={submitHandler}>
                     <Form.Group>
                         <Form.Label>Email</Form.Label>
@@ -44,8 +45,8 @@ const Login = () => {
                     {!!errMassage && <Alert variant="danger">{errMassage}</Alert>}
                     <Form.Group>
                         <Button variant="primary" type="submit" disabled={!isEnabled}>Submit</Button>
-                        <Form.Text className="text-muted">
-                            If you don't have account please <Link to="/register">register first</Link>
+                        <Form.Text className={styles.info}>
+                            If you don't have account please <Link className={styles.info} to="/register">register first</Link>
                             </Form.Text>
                     </Form.Group>
                 </Form>

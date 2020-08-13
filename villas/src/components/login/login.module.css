@@ -2,27 +2,17 @@ body, html {
   height: 100%;
   }
   .bg {
-  background-image: url("beach2.jpg");
-  height: 80vh;
+  background-image: url("beach.jpg");
+  height: 85vh;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  /* filter: blur(2px);
+  -webkit-filter: blur(2px); */
   }
-  /* section div.form {
+  section div.loginform {
     position: relative;
-    left: 200px;
-    top:70px;
-    max-width: 400px;
-    padding: 40px;
-    background-color: white;
-    opacity: 0.7;
-    border-radius: 20px;
-    border: 2px
-
-  } */
-  section div.form {
-    position: relative;
-    left: 360px;
+    left: 540px;
     top: 70px;
     color: white;
     max-width: 400px;
@@ -35,4 +25,11 @@ body, html {
     /* z-index: 2; */
     /* background-color: rgb(0,0,0); Fallback color */
     background-color: rgba(0, 0, 0, 0.363); 
+  }
+  small.info a:link { color: #6e8eb4;
+    text-decoration:black; 
+    border-bottom: white solid 1px;}
+  .info {
+      font-size:smaller;
+      color:rgb(230, 227, 227)
   }

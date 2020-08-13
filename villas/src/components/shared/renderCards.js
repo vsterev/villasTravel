@@ -1,5 +1,5 @@
 import React from 'react'
-import { CardColumns, CardGroup, CardDeck, Row } from 'react-bootstrap'
+import { CardColumns, Row } from 'react-bootstrap'
 const renderCards = ({ villas, Component }) => {
     return (
         <Row>

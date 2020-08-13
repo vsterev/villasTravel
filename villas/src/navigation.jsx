@@ -14,7 +14,7 @@ import BookVillaPage from './components/pages/bookVillaPage'
 import DetailsReservationPage from './components/pages/detailsReservationPage'
 
 import AuthContext from './utils/context'
-import HomeNotAuth from './components/homeNotAuth'
+// import HomeNotAuth from './components/homeNotAuth'
 const Navigation = () => {
     const { loggedIn } = useContext(AuthContext)
     return (

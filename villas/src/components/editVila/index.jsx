@@ -42,8 +42,8 @@ const EditVilla = () => {
                     setImageUrl(imageUrl)
                     setImageUrl2(imageUrl2)
                     setImageUrl3(imageUrl3)
-                    setClientsNames(reservationId.clients)
-                    setComments(reservationId.comments)
+                    reservationId.clients && setClientsNames(reservationId.clients)
+                    reservationId.comments && setComments(reservationId.comments)
                 }
             })
             .catch(err => console.log(err))
@@ -258,9 +258,9 @@ const EditVilla = () => {
 
                     </ListGroup>
                     <ListGroup className="text-center">
-                    <Card.Header><h6>delete your property</h6></Card.Header>
+                        <Card.Header><h6>delete your property</h6></Card.Header>
                         <ListGroup.Item >
-                        <Button variant="danger" onClick={deleteHandler} >Delete </Button>
+                            <Button variant="danger" onClick={deleteHandler} >Delete </Button>
                         </ListGroup.Item>
                     </ListGroup>
 

@@ -7,7 +7,6 @@ import villaService from '../../services/villaService'
 import parseCookie from '../../utils/parseCookie'
 import { Container, Row, Col, Button, Card, ListGroup } from 'react-bootstrap'
 import banner from './banner.gif'
-import CardDetail from '../shared/card'
 const Profile = () => {
     const [villas, setVillas] = useState([])
     const [reservations, setReservations] = useState([])

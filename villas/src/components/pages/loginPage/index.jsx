@@ -7,11 +7,9 @@ const LoginPage = (props) => {
     return (
         <React.Fragment>
             <NavBar />
-            <br />
             <main>
                 <Login />
             </main>
-            <br />
             <Footer />
         </React.Fragment>
     )
