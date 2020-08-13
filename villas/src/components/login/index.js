@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { Form, Button, Alert } from 'react-bootstrap'
 import './style.css'
 import userService from '../../services/userService'
@@ -41,8 +41,13 @@ const Login = () => {
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                     </Form.Group>
-                   {!!errMassage && <Alert variant="danger">{errMassage}</Alert>}
-                    <Button variant="primary" type="submit" disabled={!isEnabled}>Submit</Button>
+                    {!!errMassage && <Alert variant="danger">{errMassage}</Alert>}
+                    <Form.Group>
+                        <Button variant="primary" type="submit" disabled={!isEnabled}>Submit</Button>
+                        <Form.Text className="text-muted">
+                            If you don't have account please <Link to="/register">register first</Link>
+                            </Form.Text>
+                    </Form.Group>
                 </Form>
             </div>
         </section>

@@ -12,32 +12,30 @@ import AddVilaPage from './components/pages/addVillaPage'
 import DetailsVillaPage from './components/pages/detailsVillaPage'
 import BookVillaPage from './components/pages/bookVillaPage'
 import DetailsReservationPage from './components/pages/detailsReservationPage'
-// import Jumbotron from 'react-bootstrap/Jumbotron';
-// import Container from 'react-bootstrap/Container';
+
 import AuthContext from './utils/context'
+import HomeNotAuth from './components/homeNotAuth'
 const Navigation = () => {
     const { loggedIn } = useContext(AuthContext)
     return (
         <BrowserRouter>
-            {/* <Container className="p-3">
-                <Jumbotron> */}
-                    <Switch>
-                        <Route path="/" exact render={!loggedIn ? () => <HomePage /> : () => <HomePageAuth />} />
-                        {/* <Route path="/login" render={(props) => <LoginPage {...props} />} /> */}
-                        {/* <Route path="/login" render={!loggedIn ? (props) => <LoginPage {...props}/> : (props) => <HomePage {...props}/>} /> */}
-                        <Route path="/login" component={LoginPage} />
-                        <Route path="/logout" component={Logout} />
-                        <Route path="/register" component={RegisterPage} />
-                        <Route path="/profile" component={ProfilePage} />
-                        <Route path="/password-change" component={PasswordChangePage} />
-                        <Route path="/add-villa" component={AddVilaPage} />
-                        <Route path="/villa/edit/:id" component={EditVilaPage} />
-                        <Route path="/villa/detail/:id" component={DetailsVillaPage} />
-                        <Route path="/villa/book/details/:id" component={DetailsReservationPage} />
-                        <Route path="/villa/book/:id" component={BookVillaPage} />
-                    </Switch>
-                {/* </Jumbotron>
-            </Container> */}
+
+            <Switch>
+                <Route path="/" exact render={!loggedIn ? () => <HomePage /> : () => <HomePageAuth />} />
+                {/* <Route path="/login" render={(props) => <LoginPage {...props} />} /> */}
+                {/* <Route path="/login" render={!loggedIn ? (props) => <LoginPage {...props}/> : (props) => <HomePage {...props}/>} /> */}
+                <Route path="/login" render={!loggedIn ? () => <LoginPage /> : () => <HomePageAuth/>} />
+                {/* <Route path="/login" component={LoginPage} /> */}
+                <Route path="/logout" component={Logout} />
+                <Route path="/register" render={!loggedIn ? () => <RegisterPage /> : () => <HomePageAuth/>} />
+                <Route path="/profile" render={loggedIn ? () => <ProfilePage /> : () => <HomePage/>}/> 
+                <Route path="/password-change" render={loggedIn ? () => <PasswordChangePage /> : () => <HomePage/>} />
+                <Route path="/add-villa" render={loggedIn ? () => <AddVilaPage /> : () => <LoginPage/>} />
+                <Route path="/villa/edit/:id" render={loggedIn ? () => <EditVilaPage /> : () => <LoginPage/>} />
+                <Route path="/villa/detail/:id"  render={loggedIn ? () => <DetailsVillaPage /> : () => <LoginPage/>} />
+                <Route path="/villa/book/details/:id" render={loggedIn ? () => <DetailsReservationPage /> : () => <LoginPage/>}/>
+                <Route path="/villa/book/:id" render={loggedIn ? () => <BookVillaPage /> : () => <LoginPage/>} />
+            </Switch>
         </BrowserRouter>
     )
 }
