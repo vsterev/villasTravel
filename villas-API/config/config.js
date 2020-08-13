@@ -1,10 +1,11 @@
-const env = process.env.NODE_ENV || 'local';
+const env = process.env.NODE_ENV || 'cloud';
 const DB_PASS = process.env.DB_PASS;
 const DB_USER = process.env.DB_USER;
 const config = {
     cloud: {
         port: process.env.PORT || 4000, //3000
-        dataBaseUrl: `mongodb+srv://${DB_USER}:${DB_PASS}@cluster0-azuwr.mongodb.net/villas`
+        // dataBaseUrl: `mongodb+srv://${DB_USER}:${DB_PASS}@cluster0-azuwr.mongodb.net/villas`
+        dataBaseUrl: `mongodb+srv://vasko:vas2014eli@cluster0-azuwr.mongodb.net/villas`
     },
     local: {
         port: 4000,

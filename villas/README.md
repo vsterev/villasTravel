@@ -7,7 +7,8 @@ the main folder contains two folder villasAPI and villa
 
 ### First start the API:
 ```bash
-cd villasAPI
+cd villas-API
+npm install
 npm run start
 ```
 Api will be run on the localhost on port 4000
@@ -15,6 +16,7 @@ Api will be run on the localhost on port 4000
 ### Then to start React application: 
 ```bash
 cd villas
+npm install
 npm run start
 ```
 ## Introduction
