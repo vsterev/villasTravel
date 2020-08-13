@@ -2,6 +2,7 @@ import React from 'react'
 import NavBar from '../../navbar'
 import HomeNotAuth from '../../homeNotAuth'
 import Jumbotron from '../../shared/jumboron'
+import Footer from '../../footer'
 
 const Homepage = (props) => {
     return (
@@ -13,6 +14,8 @@ const Homepage = (props) => {
                     subtitle={'Join us - you can be a part from the antiCovid Travel 2020 society'} />
                 <HomeNotAuth />
             </main>
+            <br />
+        <Footer />
         </React.Fragment>
     )
 }

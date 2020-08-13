@@ -1,9 +1,12 @@
 import React from "react";
-import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
 
 const FooterPage = () => {
   return (
-      null
+    <footer id="sticky-footer" class="py-3 bg-light">
+      <div class="container">
+        <p class="m-0 text-center ">Copyright © Villas Choise</p>
+      </div>
+    </footer>
   )
 }
 
