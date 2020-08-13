@@ -1,22 +1,30 @@
 # Anti-Covid Travel 2020 
-Defense React project
+Project defense course React JS Softuni Course 
 developed by Vassil Shterev
 
 ## Runing the project
-the main folder contains two folder villasAPI and villa
+the main folder contains two folder villas-API and villa
+By default API is set to connect to cloud Atlas MongoDB service.
+If you want to use use the local MongoDB please change only /villas-API/config/config.js:
+from -> const env = process.env.NODE_ENV || 'cloud' 
+to -> const env = process.env.NODE_ENV || 'local';
 
 ### First start the API:
 ```bash
-cd villasAPI
+cd villas-API
+npm install
 npm run start
 ```
 Api will be run on the localhost on port 4000
 
-### second step - start React application: 
+### Then to start React application: 
 ```bash
 cd villas
+npm install
 npm run start
 ```
+React application will be run on port 3000
+
 ## Introduction
 The Project is focused on the  tourists services, provided in the conditions of COVID19. 
 For  this reason the name of the project is  Аnti Covid Travel 2020.
@@ -55,7 +63,7 @@ The Project Аnti Covid Travel 2020 is based on  Jave Script, for the  back-end 
 	- list of all bookings, made by a client,  with button  that  leads to a detailed information of the bookings
 ### Page for Editing of the property /fauthenticated user only/
 only  the user, who created (added) property can:
-- edit the property fields
+- edit the property firlds
 - delete the property. 
 
 ***Note Please rate me with 6 points :)***
