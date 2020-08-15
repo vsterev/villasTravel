@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Form, Alert, Button } from 'react-bootstrap'
 import userService from '../../services/userService'
@@ -23,8 +23,7 @@ const Register = (props) => {
         }
         userService.register({ email, password, name },
             (data) => {
-                history.push('/')
-                const { userData } = data
+                const userData = data
                 logIn(userData)
                 setSuccessMessage(e)
             },
@@ -38,6 +37,11 @@ const Register = (props) => {
             })
     }
 
+    useEffect(() => {
+        return function cleanup() {
+            history.push('/')
+        }
+    },[])
     const isEnabled = email.length > 0 && password.length > 0 && repass.length > 0 && name.length > 0
 
     return (
@@ -55,7 +59,7 @@ const Register = (props) => {
                 {!!errorMessage && <span className="error" >{errorMessage}</span>}
             </form> */}
             <div className={styles.form}>
-                   <h2>Register</h2> 
+                <h2>Register</h2>
 
                 <Form onSubmit={buttonHandler}>
                     <Form.Group>

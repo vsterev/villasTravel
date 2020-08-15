@@ -27,7 +27,7 @@ const AddVilla = () => {
             .then(data => {
                 console.log(data)
                 if (!data.status) {
-                    setMsg(data.msg)
+                    // setMsg(data.msg)
                 } else {
                     history.push('/profile')
                 }
