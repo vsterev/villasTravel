@@ -25,7 +25,7 @@ const AddVilla = () => {
         console.log(data)
         villaService.addVilla(data, token)
             .then(data => {
-                console.log(data)
+                // console.log(data)
                 if (!data.status) {
                     // setMsg(data.msg)
                 } else {

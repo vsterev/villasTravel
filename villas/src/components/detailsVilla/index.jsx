@@ -155,6 +155,8 @@ const VillaDetail = () => {
                             <h5>price terms & conditions:</h5>
                         </Col>
                         <Col>
+                            {!!coordinates.lat && <Link to="#" onClick={() => setViewMap(!viewMap)}> <h5>view on google map </h5></Link>}
+
                         </Col>
                     </Row>
                     <Row>
@@ -164,7 +166,6 @@ const VillaDetail = () => {
                             <div>maximum accomodation - {beds} person</div>
                         </Col>
                         <Col >
-                            {!!coordinates.lat && <Link to="#" onClick={() => setViewMap(!viewMap)}>view property on google map </Link>}
                             {!!coordinates.lat && viewMap && <div style={{ height: '400px', width: '100%', position: 'relative' }}>
                                 <GoogleMapReact coordinates={coordinates} name={villaName} />
                             </div>}

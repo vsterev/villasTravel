@@ -3,17 +3,19 @@ import { useParams, useHistory } from 'react-router-dom'
 import villaService from '../../services/villaService'
 import reservationService from '../../services/reservationService'
 import parseCookie from '../../utils/parseCookie'
-import {  Col, Form, Container, Row, Button, InputGroup, FormControl } from 'react-bootstrap'
+import { Col, Form, Container, Row, Button, InputGroup, FormControl } from 'react-bootstrap'
+import SpynnerDetail from '../shared/spinner'
 import './style.css'
+import SpinnerDetail from '../shared/spinner'
 const BookVilla = () => {
-    const [villaName, setVillaName] = useState('')
-    const [region, setRegion] = useState('')
-    const [date, setDate] = useState('')
+    const [villaName, setVillaName] = useState(null)
+    const [region, setRegion] = useState(null)
+    const [date, setDate] = useState(null)
     const [beds, setBeds] = useState(0)
     const [nights, setNights] = useState('0')
     const [price, setPrice] = useState('0')
-    const [priceDescription, setPriceDescription] = useState('')
-    const [imageUrl, setImageUrl] = useState('')
+    const [priceDescription, setPriceDescription] = useState(null)
+    const [imageUrl, setImageUrl] = useState(null)
     // const [msg, setMsg] = useState('')
     const [isAgree, setIsAgree] = useState(false)
     const params = useParams();
@@ -62,12 +64,12 @@ const BookVilla = () => {
         t.push(
             // <div key={beds}><label>comment: <textarea cols="65" rows="5" name="comment" placeholder="type your comments here" /></label></div>
             <InputGroup key={i}>
-            <InputGroup.Prepend>
-              <InputGroup.Text>Comment</InputGroup.Text>
-            </InputGroup.Prepend>
-            <FormControl as="textarea" aria-label="With textarea" name="comment" placeholder="type your comments here - optional"/>
-          </InputGroup>
-            )
+                <InputGroup.Prepend>
+                    <InputGroup.Text>Comment</InputGroup.Text>
+                </InputGroup.Prepend>
+                <FormControl as="textarea" aria-label="With textarea" name="comment" placeholder="type your comments here - optional" />
+            </InputGroup>
+        )
         return t;
     }
     // const renderNames = () => {
@@ -93,7 +95,7 @@ const BookVilla = () => {
         const comment = e.target.comment.value
         const dataParams = { clients, villaId, comment }
         // console.log(dataParams)
-        reservationService.createReservation(dataParams, token) 
+        reservationService.createReservation(dataParams, token)
             .then(data => {
                 if (!data.status) {
                     // setMsg(data.msg)
@@ -102,6 +104,9 @@ const BookVilla = () => {
                 history.push('/profile')
             })
             .catch(err => console.log(err))
+    }
+    if (imageUrl === null) {
+        return <SpinnerDetail />
     }
     return (
         <Container>

@@ -5,7 +5,7 @@ import reservationService from '../../services/reservationService'
 import userService from '../../services/userService'
 import villaService from '../../services/villaService'
 import parseCookie from '../../utils/parseCookie'
-import { Container, Row, Col, Button, Card, ListGroup } from 'react-bootstrap'
+import { Container, Row, Col, Button, Card, ListGroup, Badge } from 'react-bootstrap'
 import banner from './banner.gif'
 const Profile = () => {
     const [villas, setVillas] = useState([])
@@ -62,22 +62,22 @@ const Profile = () => {
                                     </Card.Header>
                                     <Card.Body>
                                         {/* <Card.Text> */}
-                                            <div>name: <b>{user.name}</b> </div>
-                                            <div>email: <b>{user.email}</b> </div>
-                                            <br />
+                                        <div>name: <b>{user.name}</b> </div>
+                                        <div>email: <b>{user.email}</b> </div>
+                                        <br />
+                                        <div>
+                                            <Button onClick={() => history.push('/password-change')}>Password change</Button>{' '}
+                                            <Button onClick={() => setNameChanging(!nameChanging)}>Name change</Button>{' '}
+                                            <Button onClick={() => history.push('/add-villa')}>Add new villa</Button>
+                                        </div>
+                                        {!!nameChanging &&
                                             <div>
-                                                <Button onClick={() => history.push('/password-change')}>Password change</Button>{' '}
-                                                <Button onClick={() => setNameChanging(!nameChanging)}>Name change</Button>{' '}
-                                                <Button onClick={() => history.push('/add-villa')}>Add new villa</Button>
+                                                <br />
+                                                <input placeholder="type new name" value={newName} onChange={(e) => setNewName(e.target.value)} />
+                                                <Button type="button" onClick={changeNameHandler}>Confirm</Button>
                                             </div>
-                                            {!!nameChanging &&
-                                                <div>
-                                                    <br />
-                                                    <input placeholder="type new name" value={newName} onChange={(e) => setNewName(e.target.value)} />
-                                                    <Button type="button" onClick={changeNameHandler}>Confirm</Button>
-                                                </div>
-                                            }
-                                            <br />
+                                        }
+                                        <br />
                                         {/* </Card.Text> */}
                                     </Card.Body>
                                 </Card>
@@ -89,12 +89,19 @@ const Profile = () => {
                                     <Card.Header><b>your own properties in the system:</b></Card.Header>
                                     <ListGroup variant="flush">
                                         {/* <Card.Text> */}
-                                            
-                                                {villas.length !== 0 && villas.map((villa, id) => {
-                                                    return <ListGroup.Item key={id}> <Row key={id} ><Col> {villa.name} in {villa.region} </Col><Col>{villa.date}</Col><Col>{villa.nights}</Col><Col><Button onClick={() => history.push(`/villa/edit/${villa._id}`)}>more info </Button></Col></Row></ListGroup.Item>
-                                                })}
-                                                {villas.length === 0 && <h4> You don't have added your own villas!</h4>}
-                                           
+
+                                        {villas.length !== 0 && villas.map((villa, id) => {
+                                            return <ListGroup.Item key={id}>
+                                                <Row key={id} >
+                                                    <Col> {villa.name} in {villa.region} </Col>
+                                                    <Col>{villa.date}</Col><Col>{villa.nights}</Col>
+                                                    <Col><h4>{!!villa.reservationId ? <Badge variant="danger" >booked</Badge> : <Badge variant="success" >available </Badge>}</h4></Col>
+                                                    <Col><Button onClick={() => history.push(`/villa/edit/${villa._id}`)}>more info</Button></Col>
+                                                </Row>
+                                            </ListGroup.Item>
+                                        })}
+                                        {villas.length === 0 && <h4> You don't have added your own villas!</h4>}
+
 
                                         {/* </Card.Text> */}
                                     </ListGroup >
@@ -106,14 +113,14 @@ const Profile = () => {
                                 <Card>
                                     <Card.Header>
                                         <b> your booked holidays in the system:</b>
-                                        </Card.Header>
+                                    </Card.Header>
                                     <ListGroup variant="flush">
 
                                         {/* <Card.Text> */}
-                                            {reservations.length !== 0 && reservations.map((reservation, id) => {
-                                                return <ListGroup.Item  key={id}><Row ><Col >{reservation.villaId.name}</Col><Col>{reservation.villaId.date}</Col><Col>{reservation.villaId.nights}</Col><Col><Button onClick={() => history.push(`/villa/book/details/${reservation._id}`)}>more info</Button></Col></Row></ListGroup.Item >
-                                            })}
-                                            {reservations.length === 0 && <h3> You don't have any bookings in the system!</h3>}
+                                        {reservations.length !== 0 && reservations.map((reservation, id) => {
+                                            return <ListGroup.Item key={id}><Row ><Col >{reservation.villaId.name}</Col><Col>{reservation.villaId.date}</Col><Col>{reservation.villaId.nights}</Col><Col><Button onClick={() => history.push(`/villa/book/details/${reservation._id}`)}>more info</Button></Col></Row></ListGroup.Item >
+                                        })}
+                                        {reservations.length === 0 && <h3> You don't have any bookings in the system!</h3>}
                                         {/* </Card.Text> */}
                                     </ListGroup >
                                 </Card>
