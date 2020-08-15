@@ -35,7 +35,7 @@ const Profile = () => {
             })
             .catch(err => console.log(err))
 
-    }, [])
+    }, [token])
     const changeNameHandler = () => {
         console.log(newName)
         console.log(token)

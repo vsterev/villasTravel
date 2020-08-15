@@ -1,0 +1,29 @@
+body, html {
+    height: 100%;
+    }
+.bg {
+    background-image: url("error.jpg");
+    height: 85vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* filter: blur(2px);
+    -webkit-filter: blur(2px); */
+    
+}
+.message {
+      position: relative;
+      left: 140px;
+      top: 40px;
+      color: white;
+      max-width: 400px;
+      padding: 20px;
+      background-color: white;
+      opacity: 0.8;
+      border-radius: 20px;
+      border: 2px;
+      /* transform: translate(-50%, -50%); */
+      /* z-index: 2; */
+      /* background-color: rgb(0,0,0); Fallback color */
+      background-color: rgba(0, 0, 0, 0.363); 
+}

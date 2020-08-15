@@ -14,7 +14,7 @@ const BookVilla = () => {
     const [price, setPrice] = useState('0')
     const [priceDescription, setPriceDescription] = useState('')
     const [imageUrl, setImageUrl] = useState('')
-    const [msg, setMsg] = useState('')
+    // const [msg, setMsg] = useState('')
     const [isAgree, setIsAgree] = useState(false)
     const params = useParams();
     const history = useHistory()
@@ -23,9 +23,9 @@ const BookVilla = () => {
     useEffect(() => {
         villaService.villaDetails(villaId, token)
             .then(data => {
-                if (!data.status) {
-                    setMsg('Eroor finding this villa')
-                }
+                // if (!data.status) {
+                //     setMsg('Eroor finding this villa')
+                // }
                 // console.log(data)
                 const { name, region, date, beds, nights, price, priceDescription, imageUrl } = data.villa
                 setVillaName(name)
@@ -38,7 +38,7 @@ const BookVilla = () => {
                 setImageUrl(imageUrl)
             })
             .catch(err => console.log(err))
-    }, [])
+    }, [villaId, token])
     const renderNames = () => {
         let i
         let t = [];
@@ -96,7 +96,7 @@ const BookVilla = () => {
         reservationService.createReservation(dataParams, token) 
             .then(data => {
                 if (!data.status) {
-                    setMsg(data.msg)
+                    // setMsg(data.msg)
                     return
                 }
                 history.push('/profile')

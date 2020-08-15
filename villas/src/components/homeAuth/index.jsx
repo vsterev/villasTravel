@@ -33,7 +33,7 @@ const HomeNotAuth = () => {
                     <Form.Row >
                         {/* <Form.Group> */}
                         <Col sm={3} className="my-1">
-                            <Form.Control type="text" placeholder="enter name" value={search} onChange={(e) => setSearch(e.target.value)} />
+                            <Form.Control type="text" placeholder="name or location" value={search} onChange={(e) => setSearch(e.target.value)} />
                         </Col>
                         <Col xs="auto" className="my-1">
                             <Form.Control type="text" placeholder="price from " value={from} onChange={(e) => setFrom(e.target.value)} />

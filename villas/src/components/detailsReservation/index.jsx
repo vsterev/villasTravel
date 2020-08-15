@@ -1,33 +1,34 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import reservationService from '../../services/reservationService'
-import villaService from '../../services/villaService'
+// import villaService from '../../services/villaService'
 import parseCookie from '../../utils/parseCookie'
-import AuthContext from '../../utils/context'
-import { ListGroup, InputGroup, FormControl, Card, Col, Image, Row, Container } from 'react-bootstrap'
+// import AuthContext from '../../utils/context'
+import { ListGroup, InputGroup, FormControl, Card } from 'react-bootstrap'
 import AccordionDetail from '../shared/acordionDetail'
 import ImageBlock from '../shared/imageBlock'
+import SpinnerDetail from '../shared/spinner'
 
 const VillaDetail = () => {
-    const { user } = useContext(AuthContext)
+    // const { user } = useContext(AuthContext)
     const params = useParams()
-    const [villaName, setVillaName] = useState('')
-    const [region, setRegion] = useState('')
-    const [date, setDate] = useState('')
-    const [beds, setBeds] = useState(0)
-    const [nights, setNights] = useState('0')
-    const [price, setPrice] = useState('0')
-    const [priceDescription, setPriceDescription] = useState('')
-    const [description, setDescription] = useState('')
-    const [imageUrl, setImageUrl] = useState('')
-    const [imageUrl2, setImageUrl2] = useState('')
-    const [imageUrl3, setImageUrl3] = useState('')
-    const [likes, setLikes] = useState([])
+    const [villaName, setVillaName] = useState(null)
+    const [region, setRegion] = useState(null)
+    const [date, setDate] = useState(null)
+    const [beds, setBeds] = useState(null)
+    const [nights, setNights] = useState(null)
+    const [price, setPrice] = useState(null)
+    const [priceDescription, setPriceDescription] = useState(null)
+    const [description, setDescription] = useState(null)
+    const [imageUrl, setImageUrl] = useState(null)
+    const [imageUrl2, setImageUrl2] = useState(null)
+    const [imageUrl3, setImageUrl3] = useState(null)
+    // const [likes, setLikes] = useState([])
     const [clients, setClients] = useState([])
     const [comments, setComments] = useState([])
-    const [isBooked, setIsBooked] = useState(false) //
-    const [msg, setMsg] = useState('')
-    const history = useHistory();
+    // const [isBooked, setIsBooked] = useState(false)
+    const [msg, setMsg] = useState(null)
+    // const history = useHistory();
 
     const villaId = params.id
     // console.log(villaId)
@@ -38,8 +39,8 @@ const VillaDetail = () => {
                 if (!data.status) {
                     setMsg('Eroor finding this villa')
                 }
-                console.log(data)
-                const { name, region, date, beds, nights, price, priceDescription, description, imageUrl, imageUrl2, imageUrl3, likes, reservationId } = data.reservation.villaId
+                // console.log(data)
+                const { name, region, date, beds, nights, price, priceDescription, description, imageUrl, imageUrl2, imageUrl3 } = data.reservation.villaId
                 const { clients, comments } = data.reservation
                 setVillaName(name)
                 setRegion(region)
@@ -52,8 +53,8 @@ const VillaDetail = () => {
                 setImageUrl(imageUrl)
                 setImageUrl2(imageUrl2)
                 setImageUrl3(imageUrl3)
-                setLikes(likes)
-                setIsBooked(!!reservationId)
+                // setLikes(likes)
+                // setIsBooked(!!reservationId)
                 setComments(comments)
                 setClients(clients)
             })
@@ -61,17 +62,20 @@ const VillaDetail = () => {
         // return function () {
         //     setLikes([])
         // }
-    }, [])
+    }, [token, villaId])
     // const isBooked = reservationId ? !!reservationId : false
     // }, [villaId, likes])
-    const likeHandler = (e) => {
-        villaService.villaLike(token, villaId)
-            .then(data => {
-                console.log(data)
-                window.location.reload(true)
-                //da napravia vtori useEffect samo za likes za da ne prerenderira cialata stranica
-            })
-            .catch(err => console.log(err))
+    // const likeHandler = (e) => {
+    //     villaService.villaLike(token, villaId)
+    //         .then(data => {
+    //             console.log(data)
+    //             window.location.reload(true)
+    //             //da napravia vtori useEffect samo za likes za da ne prerenderira cialata stranica
+    //         })
+    //         .catch(err => console.log(err))
+    // }
+    if (imageUrl === null) {
+        return <SpinnerDetail />
     }
 
     return (

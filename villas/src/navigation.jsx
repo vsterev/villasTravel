@@ -12,6 +12,8 @@ import AddVilaPage from './components/pages/addVillaPage'
 import DetailsVillaPage from './components/pages/detailsVillaPage'
 import BookVillaPage from './components/pages/bookVillaPage'
 import DetailsReservationPage from './components/pages/detailsReservationPage'
+// import Map from './components/shared/googleMapGetLocation'
+import ErrorPage from './components/pages/errorPage'
 
 import AuthContext from './utils/context'
 // import HomeNotAuth from './components/homeNotAuth'
@@ -35,6 +37,8 @@ const Navigation = () => {
                 <Route path="/villa/detail/:id"  render={loggedIn ? () => <DetailsVillaPage /> : () => <LoginPage/>} />
                 <Route path="/villa/book/details/:id" render={loggedIn ? () => <DetailsReservationPage /> : () => <LoginPage/>}/>
                 <Route path="/villa/book/:id" render={loggedIn ? () => <BookVillaPage /> : () => <LoginPage/>} />
+                {/* <Route path="/map" component={Map} /> */}
+                <Route path="*" render={()=> <ErrorPage msg="Page not Found - 404"/>} />
             </Switch>
         </BrowserRouter>
     )

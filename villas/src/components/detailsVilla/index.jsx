@@ -1,29 +1,33 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
+import { useHistory, useParams, Link } from 'react-router-dom'
 import { Col, Row, Container, Badge, Button, Card } from 'react-bootstrap'
 import villaService from '../../services/villaService'
 import parseCookie from '../../utils/parseCookie'
 import AuthContext from '../../utils/context'
 import CarouselDetail from '../shared/carousel'
+import SpinnerDetail from '../shared/spinner'
 import './style.css'
+import GoogleMapReact from '../shared/googleMap'
 
 const VillaDetail = () => {
     const { user } = useContext(AuthContext)
     const params = useParams()
-    const [villaName, setVillaName] = useState('')
-    const [region, setRegion] = useState('')
-    const [date, setDate] = useState('')
-    const [beds, setBeds] = useState(0)
-    const [nights, setNights] = useState('0')
-    const [price, setPrice] = useState('0')
-    const [priceDescription, setPriceDescription] = useState('')
-    const [description, setDescription] = useState('')
-    const [imageUrl, setImageUrl] = useState('')
-    const [imageUrl2, setImageUrl2] = useState('')
-    const [imageUrl3, setImageUrl3] = useState('')
+    const [villaName, setVillaName] = useState(null)
+    const [region, setRegion] = useState(null)
+    const [date, setDate] = useState(null)
+    const [beds, setBeds] = useState(null)
+    const [nights, setNights] = useState(null)
+    const [price, setPrice] = useState(null)
+    const [priceDescription, setPriceDescription] = useState(null)
+    const [description, setDescription] = useState(null)
+    const [imageUrl, setImageUrl] = useState(null)
+    const [imageUrl2, setImageUrl2] = useState(null)
+    const [imageUrl3, setImageUrl3] = useState(null)
     const [likes, setLikes] = useState([])
-    const [isBooked, setIsBooked] = useState(false) //
-    const [msg, setMsg] = useState('')
+    const [isBooked, setIsBooked] = useState(false)
+    const [msg, setMsg] = useState(null)
+    const [coordinates, setCoordinates] = useState({ lat: null, lng: null })
+    const [viewMap, setViewMap] = useState(false)
     const history = useHistory();
 
     const villaId = params.id
@@ -36,8 +40,8 @@ const VillaDetail = () => {
                     setMsg('Eroor finding this villa')
                 }
                 // console.log(data)
-                const { name, region, date, beds, nights, price, priceDescription, description, imageUrl, imageUrl2, imageUrl3, likes, reservationId } = data.villa
-                // console.log(name, region, date, beds, nights, price, priceDescription, description, imageUrl, imageUrl2, imageUrl3, likes, reservationId)
+                const { name, region, date, beds, nights, price, priceDescription, description, imageUrl, imageUrl2, imageUrl3, likes, reservationId, coordinates } = data.villa
+                // console.log(coordinates)
                 setVillaName(name)
                 setRegion(region)
                 setDate(date)
@@ -51,14 +55,16 @@ const VillaDetail = () => {
                 setImageUrl3(imageUrl3)
                 setLikes(likes)
                 setIsBooked(!!reservationId)
+                setCoordinates(coordinates || { lat: null, lng: null })
+
             })
             .catch(err => console.log(err))
         // return function () {
         //     setLikes([])
         // }
-    }, [])
+    }, [villaId, token])
     // const isBooked = reservationId ? !!reservationId : false
-    console.log(isBooked)
+    // console.log(isBooked)
     // }, [villaId, likes])
     const likeHandler = (e) => {
         villaService.villaLike(token, villaId)
@@ -69,103 +75,116 @@ const VillaDetail = () => {
             })
             .catch(err => console.log(err))
     }
- 
+    if (imageUrl === null) {
+        return <SpinnerDetail />
+
+    }
     return (
-        <Container >
-            <div>
-                <h2 className="header">{villaName} - {region}</h2>
-                <Row className="justify-content-md-center">
-                    <Col>
-                        <CarouselDetail img1={imageUrl} img2={imageUrl2} img3={imageUrl3} />
-                    </Col>
-                    {/* <Col><h3> {villaName} in {region}</h3></Col>
+        <React.Fragment>
+            <Container >
+                <div>
+                    <h2 className="header">{villaName} - {region}</h2>
+
+                    <Row className="justify-content-md-center">
+                        <Col>
+                            <CarouselDetail img1={imageUrl} img2={imageUrl2} img3={imageUrl3} />
+                        </Col>
+                        {/* <Col><h3> {villaName} in {region}</h3></Col>
                     <Col>{isBooked ? <span color="red">offer is booked</span> : <span>offer is still available</span>}</Col> */}
-                </Row>
-                <Row>
-                    <Col>
-                        <h4>
-                            <Badge variant="primary">Likes: {likes.length}</Badge>
-                            {' '}
-                            {isBooked ? <Badge variant="danger">booked</Badge> : <Badge variant="success">available</Badge>}
-                        </h4>
-                    </Col>
-                    <Col>
-                    </Col>
-                    <Col>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        {likes.includes(user.userId) ? <Button disabled>Liked</Button> : <Button onClick={likeHandler}>Like it</Button>}
-                    </Col>
-                    <Col>
-                    </Col>
-                    <Col>
-                    </Col>
-                </Row>
-                <Row className="justify-content-md-center">
-                    <Col>
-                    </Col>
-                    <Col>
-                        <br></br>
-                    </Col>
-                    <Col>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col xs={10}>
-                        <h5>details & description:</h5>
-                    </Col>
-                    <Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <h4>
+                                <Badge variant="primary">Likes: {likes.length}</Badge>
+                                {' '}
+                                {isBooked ? <Badge variant="danger">booked</Badge> : <Badge variant="success">available</Badge>}
+                            </h4>
+                        </Col>
+                        <Col>
+                        </Col>
+                        <Col>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            {likes.includes(user.userId) ? <Button disabled>Liked</Button> : <Button onClick={likeHandler}>Like it</Button>}
+                        </Col>
+                        <Col>
+                        </Col>
+                        <Col>
+                        </Col>
+                    </Row>
+                    <Row className="justify-content-md-center">
+                        <Col>
+                        </Col>
+                        <Col>
+                            <br></br>
+                        </Col>
+                        <Col>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={10}>
+                            <h5>details & description:</h5>
+                        </Col>
+                        <Col>
 
-                    </Col>
+                        </Col>
 
-                </Row>
-                <Row>
-                    <Col xs={10}>
-                        {description}
-                    </Col>
-                    <Col>
-                        <Card>
-                            <Card.Header>Price</Card.Header>
-                            <Card.Body>
-                                <Card.Title>{price} Eur </Card.Title>
-                                <Card.Text>
-                                    {date}<br />
+                    </Row>
+                    <Row>
+                        <Col xs={10}>
+                            {description}
+                        </Col>
+                        <Col>
+                            <Card>
+                                <Card.Header>Price</Card.Header>
+                                <Card.Body>
+                                    <Card.Title>{price} Eur </Card.Title>
+                                    <Card.Text>
+                                        {date}<br />
                                 stay {nights} nights
                                 </Card.Text>
-                            </Card.Body>
-                        </Card>
+                                </Card.Body>
+                            </Card>
 
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <h5>price terms & conditions:</h5>
-                    </Col>
-                    <Col>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <div>availible stay from: {date} for {nights} nights</div>
-                        <div>policy: {priceDescription}</div>
-                        <div>maximum accomodation - {beds} person</div>
-                    </Col>
-                    <Col>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col xs={4}>
-                        <div>price for stay: {price} EUR</div>
-                    </Col>
-                    <Col>
-                        <Button onClick={() => history.push(`/villa/book/${villaId}`)} disabled={isBooked}>Book it now</Button>
-                    </Col>
-                </Row>
-                {!!msg && <div>{msg}</div>}
-            </div>
-        </Container>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <h5>price terms & conditions:</h5>
+                        </Col>
+                        <Col>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <div>availible stay from: {date} for {nights} nights</div>
+                            <div>policy: {priceDescription}</div>
+                            <div>maximum accomodation - {beds} person</div>
+                        </Col>
+                        <Col >
+                            {!!coordinates.lat && <Link to="#" onClick={() => setViewMap(!viewMap)}>view property on google map </Link>}
+                            {!!coordinates.lat && viewMap && <div style={{ height: '400px', width: '100%', position: 'relative' }}>
+                                <GoogleMapReact coordinates={coordinates} name={villaName} />
+                            </div>}
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={4}>
+                            <div>price for stay: {price} EUR</div>
+                        </Col>
+                        <Col>
+                            <Button onClick={() => history.push(`/villa/book/${villaId}`)} disabled={isBooked}>Book it now</Button>
+                        </Col>
+                    </Row>
+                    {!!msg && <div>{msg}</div>}
+
+
+                </div>
+            </Container>
+
+        </React.Fragment>
     )
 }
 export default VillaDetail

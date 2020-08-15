@@ -1,7 +1,8 @@
 import React from 'react'
-const Home = (props) => {
+import GetGoogleLocationMap from '../shared/googleMapGetLocation'
+const Home = () => {
     return(
-        <h2>AntiCovidTravel</h2>
+        <GetGoogleLocationMap />
     )
 }
 export default Home

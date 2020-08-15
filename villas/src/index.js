@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Auth from './utils/auth'
 import * as serviceWorker from './serviceWorker';
 import Navigation from './navigation';
-import Jumbotron from 'react-bootstrap/Jumbotron';
+// import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
 
 ReactDOM.render(
@@ -18,7 +18,7 @@ ReactDOM.render(
         </Auth>
       {/* </Jumbotron> */}
     </Container>,
-  // </React>,
+  /* </React>, */
   document.getElementById('root')
 );
 

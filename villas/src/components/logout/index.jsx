@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import AuthContext from '../../utils/context'
 const Logout = () => {
@@ -7,7 +7,7 @@ const Logout = () => {
     useEffect(() => {
         logOut()
         history.push('/')
-    }, [])
+    }, [logOut, history])
 
     return (
         null

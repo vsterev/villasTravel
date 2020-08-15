@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import AuthContext from './context'
 import userService from '../services/userService'
 import parseCookie from './parseCookie'
-
+import SpinnerDetail from '../components/shared/spinner'
 const Auth = (props) => {
     const [user, setUser] = useState({ user: null })
     const [loggedIn, setLoggedIn] = useState(null)
@@ -26,7 +26,7 @@ const Auth = (props) => {
         }
         userService.verify(token)
             .then(res => {
-                console.log(res)
+                // console.log(res)
                 if (res.status) {
                     logIn(res.userData)
                     return
@@ -37,7 +37,7 @@ const Auth = (props) => {
     }, [])
 
     if (loggedIn === null) {
-        return <div>Loading ...</div>
+        return <SpinnerDetail />
     }
     return (
         <AuthContext.Provider value={{ loggedIn, user, logIn, logOut }} >

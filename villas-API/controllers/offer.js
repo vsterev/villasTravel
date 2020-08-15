@@ -14,7 +14,7 @@ module.exports = {
                     res.status(404).json({ status: false, msg: { err } })
                     console.log(err)
                 })
-        }, 
+        },
         allVillasForUser: (req, res, next) => {
             const user = req.user;
             villaModel.find({ creatorId: user.id }).populate('reservationId').populate('creatorId')
@@ -34,6 +34,7 @@ module.exports = {
                     villa.isCreator = villa.creatorId === user.id;
                     villa.isLiked = villa.likes.includes(user.id)
                     villa.isReserved = !!villa.reservationId
+                    // console.log(villa)
                     res.status(200).json({ status: true, villa })
                 })
                 .catch(err => {
@@ -119,13 +120,13 @@ module.exports = {
         },
         create: (req, res, next) => {
             const user = req.user;
-            const { name, region, date, beds, nights, price, priceDescription, description, imageUrl, imageUrl2, imageUrl3 } = req.body;
+            const { name, region, date, beds, nights, price, priceDescription, description, imageUrl, imageUrl2, imageUrl3, coordinates } = req.body;
             villaModel.create(
                 {
                     name, region, date, beds, nights, price,
                     priceDescription, description, imageUrl,
                     imageUrl2, imageUrl3, creatorId: req.user.id,
-                    likes: [], reservationId: undefined
+                    likes: [], reservationId: undefined, coordinates
                 })
                 .then(villa => {
                     return Promise.all([villa, userModel.findByIdAndUpdate(user.id, { $push: { villas: villa.id } })])
@@ -148,7 +149,7 @@ module.exports = {
             const user = req.user;
             const { name, region, date, beds, nights, price,
                 priceDescription, description, imageUrl,
-                imageUrl2, imageUrl3 } = req.body
+                imageUrl2, imageUrl3, coordinates } = req.body
             villaModel.findById(villaId)
                 .then(villa => {
                     const isOwner = villa.creatorId == user.id
@@ -157,7 +158,7 @@ module.exports = {
                     }
                     return villaModel.findByIdAndUpdate(villaId, {
                         name, region, date, beds, nights, price,
-                        priceDescription, description, imageUrl, imageUrl2, imageUrl3
+                        priceDescription, description, imageUrl, imageUrl2, imageUrl3, coordinates
                     }, { "new": true, runValidators: true })
                 })
                 .then((villaUpdated) => {
@@ -177,19 +178,19 @@ module.exports = {
             const { from, to, search } = req.body;
             let query = {};
             if (search) {
-              query = { ...query, name: { $regex: search } };
+                query = { ...query, $or: [{ name: { $regex: search, $options: 'i' } }, { region: { $regex: search, $options: 'i' } }] };
             }
             if (to) {
-              query = { ...query, price: { $lte: +to } };
+                query = { ...query, price: { $lte: +to } };
             }
             if (from) {
-              query = {
-                ...query,
-                price: { ...query.price, $gte: +from }
-              };
+                query = {
+                    ...query,
+                    price: { ...query.price, $gte: +from }
+                };
             }
             villaModel.find(query).sort({ 'likes': -1, 'created_аt': -1 })
-            // villaModel.find(query).sort({ 'likes': -1, 'created_аt': -1 }).limit(+limit)
+                // villaModel.find(query).sort({ 'likes': -1, 'created_аt': -1 }).limit(+limit)
                 .then(villas => {
                     // res.render('homeAuth', { title: 'Trip home page', user, trips })
                     res.status(200).json({ status: true, villas })
@@ -200,6 +201,6 @@ module.exports = {
                 })
         }
     }
- 
+
 }
 

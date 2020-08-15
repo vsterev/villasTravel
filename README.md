@@ -32,7 +32,7 @@ It organizes the rent of properties – villas, houses and flats at one hand, an
 This guaranties a safe vacation for the clients, which  is very important in 2020, especially because of COVID19. 
 
 ## Main Functionalities:
-The Project Аnti Covid Travel 2020 is based on  Jave Script, for the  back-end there have been used  Mongoose, Express JS, ReactJS, Bootsrap, JWT, cookies
+The Project Аnti Covid Travel 2020 is based on  Jave Script, for the  back-end there have been used  Mongoose, Express JS, ReactJS, Bootsrap, JWT, cookies, Google maps
 
 ###  Authorization /login page/:
 - checking of the correct entered data for the validation there is used  Mongoose; 
@@ -73,7 +73,7 @@ The Project Аnti Covid Travel 2020 is based on  Jave Script, for the  back-end 
 
 ### Page for Editing of the property /fauthenticated user only/
 only  the user, who created (added) property can:
-- edit the property firlds
+- edit the property fields
 - delete the property. 
 
 ***Note Please rate me with 6 points :)***

@@ -30,6 +30,14 @@ const villaSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please enter payment policy !']
     },
+    coordinates: {
+        lat: {
+            type: String
+        },
+        lng: {
+            type: String
+        }
+    },
     description: {
         type: String,
         maxlength: [5000, 'It is allow maximum 5000 characters!']
@@ -38,7 +46,7 @@ const villaSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please add one photo at least !'],
         match: [/^(https?)\:\/\/.*/, 'Image url should begins with http or https!']
-    } ,
+    },
     imageUrl2: {
         type: String,
         match: [/^(https?)\:\/\/.*/, 'Image url should begins with http or https!']
