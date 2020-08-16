@@ -165,6 +165,7 @@ module.exports = {
                     res.status(200).json({ status: true, msg: `Villa with ID ${villaId} is updated` })
                 })
                 .catch(err => {
+                    console.log(err)
                     if (err.name == 'ValidationError') {
                         res.status(404).json({ status: false, msg: err.errors })
                         return;

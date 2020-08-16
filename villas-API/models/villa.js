@@ -8,8 +8,8 @@ const villaSchema = new mongoose.Schema({
     region: {
         type: String,
         required: [true, 'Please enter the name of the location !'],
-        // match: [/^(\w\s?-){4,}$/, 'Name should contains not less than 4 english letter, numbers and whitespase!']
-        match: [/^[a-zA-z-/]{4,}$/, 'Name should contains not less than 4 english letter, numbers and whitespase!']
+        match: [/^(\w\s?){4,}$/, 'Name should contains not less than 4 english letter, numbers and whitespase!']
+        // match: [/^[a-zA-z-/]{4,}$/, 'Name should contains not less than 4 english letter, numbers and whitespase!']
     },
     date: {
         type: String,

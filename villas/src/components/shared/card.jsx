@@ -9,14 +9,9 @@ const CardDetail = ({ name, region, id, date, price, likes, isBooked, image }) =
             <Card style={{ width: '18rem' }}>
                 <Card.Img variant="top" src={image} width="100" height="180" />
                 <Card.Body>
-                    <Card.Title>{name} - {region}</Card.Title>
+                    <Card.Title>{name}</Card.Title>
                     <Card.Subtitle>{price} Eur</Card.Subtitle>
-                    <Card.Text>
-                        from {date}
-                    </Card.Text>
-                    <Card.Text>
-                        {isBooked}
-                    </Card.Text>
+                    <Card.Text>{region} <br /> from {date} <br />  {isBooked}</Card.Text>
                     {loggedIn ? <Button as={Link} to={`/villa/detail/${id}`} variant="primary" >more ..</Button> : <Button disabled variant="primary" >more ..</Button>}
 
                 </Card.Body>

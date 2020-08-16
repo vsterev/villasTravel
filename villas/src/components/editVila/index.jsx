@@ -56,11 +56,13 @@ const EditVilla = () => {
         const data = { name, region, date, beds, nights, price, priceDescription, description, imageUrl, imageUrl2, imageUrl3, coordinates }
         villaService.villaEdit(data, token, id)
             .then(data => {
-                if (!data.status) {
+                console.log(data)
+                if (data.status) {
                     setMsg(data.msg)
+                    // history.push('/profile')
                 } else {
                     // history.push(`/villa/${id}`)
-                    setMsg(data.msg)
+                    setMsg('Error validation - name or region please enter only english letter with spase')
                 }
             })
             .catch(err => console.log(err))
@@ -167,7 +169,7 @@ if (imageUrl===null){
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
-                        <Form.Label column sm="2">Image Url 3</Form.Label>
+                        <Form.Label column sm="2">Longitude</Form.Label>
                         <Col sm="8">
                             <Form.Control type="text" name='lng' value={coordinates.lng || ''} onChange={(e) => setCoordinates({ ...coordinates, lng: e.target.value || '' })} />
                         </Col>
