@@ -34,20 +34,20 @@ const Profile = () => {
                 }
             })
             .catch(err => console.log(err))
-
     }, [token])
+
     const changeNameHandler = () => {
         console.log(newName)
         console.log(token)
         userService.nameChange({ name: newName }, token)
             .then(() => {
-                console.log()
                 setNewName('')
                 setNameChanging(false)
                 window.location.reload(false)
             })
             .catch(err => console.log(err))
     }
+
     return (
         <div>
             <h2 className="header">Profile page</h2>
@@ -61,7 +61,6 @@ const Profile = () => {
                                         <b>Administration tools</b>
                                     </Card.Header>
                                     <Card.Body>
-                                        {/* <Card.Text> */}
                                         <div>name: <b>{user.name}</b> </div>
                                         <div>email: <b>{user.email}</b> </div>
                                         <br />
@@ -78,7 +77,6 @@ const Profile = () => {
                                             </div>
                                         }
                                         <br />
-                                        {/* </Card.Text> */}
                                     </Card.Body>
                                 </Card>
                             </Col>
@@ -88,22 +86,18 @@ const Profile = () => {
                                 <Card>
                                     <Card.Header><b>your own properties in the system:</b></Card.Header>
                                     <ListGroup variant="flush">
-                                        {/* <Card.Text> */}
-
                                         {villas.length !== 0 && villas.map((villa, id) => {
                                             return <ListGroup.Item key={id}>
                                                 <Row key={id} >
-                                                    <Col> {villa.name} in {villa.region} </Col>
-                                                    <Col>{villa.date}</Col><Col>{villa.nights}</Col>
+                                                    <Col>{villa.name} in {villa.region}</Col>
+                                                    <Col>{villa.date}</Col>
+                                                    <Col>{villa.nights}</Col>
                                                     <Col><h4>{!!villa.reservationId ? <Badge variant="danger" >booked</Badge> : <Badge variant="success" >available </Badge>}</h4></Col>
                                                     <Col><Button onClick={() => history.push(`/villa/edit/${villa._id}`)}>more info</Button></Col>
                                                 </Row>
                                             </ListGroup.Item>
                                         })}
                                         {villas.length === 0 && <h4> You don't have added your own villas!</h4>}
-
-
-                                        {/* </Card.Text> */}
                                     </ListGroup >
                                 </Card>
                             </Col>
@@ -115,13 +109,18 @@ const Profile = () => {
                                         <b> your booked holidays in the system:</b>
                                     </Card.Header>
                                     <ListGroup variant="flush">
-
-                                        {/* <Card.Text> */}
                                         {reservations.length !== 0 && reservations.map((reservation, id) => {
-                                            return <ListGroup.Item key={id}><Row ><Col >{reservation.villaId.name}</Col><Col>{reservation.villaId.date}</Col><Col>{reservation.villaId.nights}</Col><Col><Button onClick={() => history.push(`/villa/book/details/${reservation._id}`)}>more info</Button></Col></Row></ListGroup.Item >
+                                            return <ListGroup.Item key={id}>
+                                                <Row>
+                                                    <Col>{reservation.villaId.name}</Col>
+                                                    <Col>{reservation.villaId.date}</Col>
+                                                    <Col>{reservation.villaId.nights}</Col>
+                                                    <Col>{reservation.villaId.creatorId.email}</Col>
+                                                    <Col><Button onClick={() => history.push(`/villa/book/details/${reservation._id}`)}>more info</Button></Col>
+                                                </Row>
+                                            </ListGroup.Item >
                                         })}
                                         {reservations.length === 0 && <h3> You don't have any bookings in the system!</h3>}
-                                        {/* </Card.Text> */}
                                     </ListGroup >
                                 </Card>
                             </Col>
@@ -133,7 +132,6 @@ const Profile = () => {
                 </Row>
             </Container>
         </div >
-
     )
 }
 export default Profile

@@ -5,7 +5,7 @@ module.exports = {
     get: {
         all: (req, res) => {
             const user = req.user;
-            reservationModel.find({ creatorId: user.id }).populate('villaId')
+            reservationModel.find({ creatorId: user.id }).populate({ path: 'villaId', populate: { path: 'creatorId', model: 'User'} })
                 .then(reservations => {
                     res.status(200).json({ status: true, reservations })
                 })

@@ -173,7 +173,7 @@ if (imageUrl===null){
                         </Col>
                     </Form.Group>
                     {!!msg && <Alert variant="danger">{msg}</Alert>}
-                    <div className="header"><Button variant="primary" type="submit" >Edit property</Button></div>
+                    <div className="header"><Button variant="primary" type="submit" disabled={clientsNames.length > 0} >Edit property</Button></div>
 
                 </Form>
                 <br />
