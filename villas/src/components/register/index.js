@@ -21,27 +21,45 @@ const Register = (props) => {
             setErrorMessage('Password and RePassword don\'t match')
             return
         }
-        userService.register({ email, password, name },
-            (data) => {
-                const userData = data
-                logIn(userData)
-                setSuccessMessage(e)
-            },
-            (e) => {
-                console.log({ 'error': e })
-                setErrorMessage(e)
-            }
-        )
-            .catch(err => {
-                console.log(err)
+        userService.register({ email, password, name })
+            .then(registred => {
+                console.log(registred)
+                if (registred.status) {
+                    const token = registred.token
+                    if (token) {
+                        document.cookie = `x-auth-token=${token}`
+                    }
+                    const userData = registred.userData
+                    logIn(userData)
+                } else {
+                    const msg = registred.msg
+                    console.log({ 'error': msg })
+                    setErrorMessage(msg)
+                }
             })
+            .catch(err => { console.log(err) })
     }
+    //     userService.register({ email, password, name },
+    //         (data) => {
+    //             const userData = data
+    //             logIn(userData)
+    //             setSuccessMessage(e)
+    //         },
+    //         (e) => {
+    //             console.log({ 'error': e })
+    //             setErrorMessage(e)
+    //         }
+    //     )
+    //         .catch(err => {
+    //             console.log(err)
+    //         })
+    // }
 
     useEffect(() => {
         return function cleanup() {
             history.push('/')
         }
-    },[])
+    }, [])
     const isEnabled = email.length > 0 && password.length > 0 && repass.length > 0 && name.length > 0
 
     return (

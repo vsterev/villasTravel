@@ -12,6 +12,7 @@ import AddVilaPage from './components/pages/addVillaPage'
 import DetailsVillaPage from './components/pages/detailsVillaPage'
 import BookVillaPage from './components/pages/bookVillaPage'
 import DetailsReservationPage from './components/pages/detailsReservationPage'
+import Map from './components/pages/testPage'
 // import Map from './components/shared/googleMapGetLocation'
 import ErrorPage from './components/pages/errorPage'
 
@@ -28,6 +29,7 @@ const Navigation = () => {
                 {/* <Route path="/login" render={!loggedIn ? (props) => <LoginPage {...props}/> : (props) => <HomePage {...props}/>} /> */}
                 <Route path="/login" render={!loggedIn ? () => <LoginPage /> : () => <HomePageAuth/>} />
                 {/* <Route path="/login" component={LoginPage} /> */}
+                <Route path="/test" component ={Map} />
                 <Route path="/logout" component={Logout} />
                 <Route path="/register" render={!loggedIn ? () => <RegisterPage /> : () => <HomePageAuth/>} />
                 <Route path="/profile" render={loggedIn ? () => <ProfilePage /> : () => <HomePage/>}/> 

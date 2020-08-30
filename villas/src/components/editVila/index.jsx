@@ -5,12 +5,12 @@ import parseCookie from '../../utils/parseCookie'
 import './style.css'
 import { Form, Row, Col, Alert, Button, InputGroup, FormControl, Card, ListGroup } from 'react-bootstrap'
 import SpinnerDetail from '../shared/spinner'
+import CloudinarAddPhoto from '../shared/cloudinary-add'
 const EditVilla = () => {
 
     const history = useHistory()
     const { id } = useParams()
     const token = parseCookie('x-auth-token')
-
     const [name, setName] = useState(null)
     const [region, setRegion] = useState(null)
     const [date, setDate] = useState(null)
@@ -44,7 +44,7 @@ const EditVilla = () => {
                     setImageUrl(imageUrl)
                     setImageUrl2(imageUrl2)
                     setImageUrl3(imageUrl3)
-                    setCoordinates(coordinates|| {lat: '', lng: ''})
+                    setCoordinates(coordinates || { lat: '', lng: '' })
                     reservationId && reservationId.clients && setClientsNames(reservationId.clients)
                     reservationId && reservationId.comments && setComments(reservationId.comments)
                 }
@@ -87,9 +87,29 @@ const EditVilla = () => {
         e.preventDefault()
         setViewBookings(!viewBookings)
     }
-if (imageUrl===null){
-    return <SpinnerDetail />
-}
+    if (imageUrl === null) {
+        return <SpinnerDetail />
+    }
+    const handlerEditImage = (n) => {
+        switch (n) {
+            case 1:
+                return v => setImageUrl2(v)
+            case 2:
+                return v => setImageUrl3(v)
+            default:
+                return v => setImageUrl(v)
+        }
+
+    }
+    const renderImageButtons = (n) => {
+        const r = []
+        for (let i = 0; i < n; i++) {
+            r.push(
+                <Col key={i}><CloudinarAddPhoto action={handlerEditImage(i)} num={i} /></Col>
+            )
+        }
+        return r
+    }
     return (
 
         <section>
@@ -144,24 +164,16 @@ if (imageUrl===null){
                             <Form.Control as="textarea" rows="7" name='description' value={description || ''} onChange={(e) => setDescription(e.target.value)} />
                         </Col>
                     </Form.Group>
-                    <Form.Group as={Row}>
-                        <Form.Label column sm="2">Image Url 1</Form.Label>
-                        <Col sm="8">
-                            <Form.Control type="text" name='imageUrl' value={imageUrl || ''} onChange={(e) => setImageUrl(e.target.value)} />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row}>
-                        <Form.Label column sm="2">Image Url 2</Form.Label>
-                        <Col sm="8">
-                            <Form.Control type="text" name='imageUrl2' value={imageUrl2 || ''} onChange={(e) => setImageUrl2(e.target.value)} />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row}>
-                        <Form.Label column sm="2">Image Url 3</Form.Label>
-                        <Col sm="8">
-                            <Form.Control type="text" name='imageUrl3' value={imageUrl3 || ''} onChange={(e) => setImageUrl3(e.target.value)} />
-                        </Col>
-                    </Form.Group>
+                    <Row>
+                        <Col>{imageUrl && <img src={imageUrl} alt="picture1" width="350" />}</Col>
+                        <Col>{imageUrl2 && <img src={imageUrl2} alt="picture2" width="350" />}</Col>
+                        <Col>{imageUrl3 && <img src={imageUrl3} alt="picture3" width="350" />}</Col>
+                    </Row>
+                    <Row><br></br></Row>
+                    <Row>
+                        {renderImageButtons(3)}
+                    </Row>
+                    <Row><br></br></Row>
                     <Form.Group as={Row}>
                         <Form.Label column sm="2">Latitude</Form.Label>
                         <Col sm="8">
@@ -182,7 +194,7 @@ if (imageUrl===null){
                 <Card>
                     <Card.Header className="text-center">
                         <h5>view bookings attached to this offer</h5>  {'            '}
-                        <Button onClick={bookingHandler} disabled={clientsNames.length===0}>more ..</Button>
+                        <Button onClick={bookingHandler} disabled={clientsNames.length === 0}>more ..</Button>
                     </Card.Header>
                     <ListGroup variant="flush">
                         {viewBookings && clientsNames.length !== 0 && clientsNames
@@ -198,7 +210,7 @@ if (imageUrl===null){
                                 </ListGroup.Item>
                             })
                         }
-                
+
                     </ListGroup >
                     <ListGroup>
                         {viewBookings && comments.length !== 0 &&

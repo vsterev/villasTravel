@@ -76,4 +76,4 @@ only  the user, who created (added) property can:
 - edit the property fields
 - delete the property. 
 
-***Note Please rate me with 6 points :)***
+***Created by Vassil Shterev***
